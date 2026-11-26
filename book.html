@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- ==================================================================
+         书籍详情页  |  BOOK DETAIL PAGE
+         ------------------------------------------------------------------
+         用户点击任意一本书的卡片后会跳到这里。
+         页面用地址栏里的 ?book=书名 来决定显示哪一本书，
+         所以十三本书只需要这一个文件。
+         When the user clicks any book card the site opens this page.
+         The ?book=参数 in the address bar decides which book is shown,
+         so one single file covers all thirteen books.
+         ================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书籍详情 Book Detail | 拾书巷 Shishuxiang Campus Book Exchange</title>
+    <link rel="shortcut icon" href="images/logo.jpg?v=6" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css?v=6">
+</head>
+
+<body>
+    <!-- ==================================================================
+         区块一：顶部导航栏
+         BLOCK 1: HEADER / NAVIGATION BAR
+         ================================================================== -->
+    <header id="header-top" class="site-header">
+        <div class="header-inner">
+            <!-- 站点名称  |  Site Name -->
+            <a href="index.html" class="header-site-title">
+                拾书巷 <span class="en-text">Shishuxiang</span>
+            </a>
+
+            <!-- 搜索框  |  Search Box -->
+            <form class="header-search" id="header-search-form" role="search">
+                <input type="search" id="header-search-input" placeholder="搜书名或作者 Search by title or writer" aria-label="搜索图书 Search for a book">
+            </form>
+
+            <nav class="header-nav">
+                <a href="index.html" class="header-nav-link">首页 <span class="en-text">Home</span></a>
+                <a href="detail.html" class="header-nav-link">书单 <span class="en-text">Catalogue</span></a>
+                <a href="contact.html" class="header-nav-link">留言板 <span class="en-text">Message Board</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- --------------------------------------------------------------
+             功能块：书籍详情
+             FEATURE BLOCK: BOOK DETAIL
+             -------------------------------------------------------------- -->
+        <section class="section-book-detail">
+            <!-- 返回书单  |  Back to the catalogue -->
+            <a href="detail.html" class="back-link">
+                <span class="back-arrow">&larr;</span>
+                返回书单 <span class="en-text">Back to the Catalogue</span>
+            </a>
+
+            <!-- 书籍信息由 JavaScript 填入  |  Filled in by JavaScript -->
+            <div class="book-detail" id="book-detail">
+                <div class="book-detail-loading">
+                    正在加载书籍信息… <span class="en-text">Loading the book details…</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="index.html">首页 <span class="en-text">Home</span></a>
+                <a href="detail.html">书单 <span class="en-text">Catalogue</span></a>
+                <a href="contact.html">留言板 <span class="en-text">Message Board</span></a>
+                <a href="#header-top">返回顶部 <span class="en-text">Back to Top</span></a>
+                <a href="mailto:shishuxiang@example.edu">shishuxiang@example.edu</a>
+            </div>
+            <p class="footer-copyright">
+                &copy; 2026 拾书巷 Shishuxiang · 校园二手书交换站 Campus Book Exchange · 组号 2 Group 2
+                <span id="footer-year"></span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=6" defer></script>
+</body>
+
+</html>

@@ -23,9 +23,9 @@
     <!-- 页面标题  |  Page Title -->
     <title>拾书巷 Shishuxiang | 校园二手书交换站 Campus Book Exchange</title>
     <!-- 网站图标  |  Favicon -->
-    <link rel="shortcut icon" href="images/logo.jpg?v=3" type="image/x-icon">
+    <link rel="shortcut icon" href="images/logo.jpg?v=6" type="image/x-icon">
     <!-- 外部样式表  |  External Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 
 <body>
@@ -33,17 +33,25 @@
          区块一：顶部导航栏
          BLOCK 1: HEADER / NAVIGATION BAR
          ================================================================== -->
-    <header id="header-top">
-        <!-- 站点名称  |  Site Name -->
-        <h1 class="header-site-title">拾书巷 <span class="en-text">Shishuxiang</span></h1>
+    <header id="header-top" class="site-header">
+        <div class="header-inner">
+            <!-- 站点名称  |  Site Name -->
+            <a href="index.html" class="header-site-title">
+                拾书巷 <span class="en-text">Shishuxiang</span>
+            </a>
 
-        <nav class="header-nav">
-            <div class="header-nav-inner">
+            <!-- 搜索框  |  Search Box -->
+            <form class="header-search" id="header-search-form" role="search">
+                <input type="search" id="header-search-input" placeholder="搜书名或作者 Search by title or writer" aria-label="搜索图书 Search for a book">
+            </form>
+
+            <!-- 导航菜单  |  Navigation -->
+            <nav class="header-nav">
                 <a href="index.html" class="header-nav-link active">首页 <span class="en-text">Home</span></a>
                 <a href="detail.html" class="header-nav-link">书单 <span class="en-text">Catalogue</span></a>
                 <a href="contact.html" class="header-nav-link">留言板 <span class="en-text">Message Board</span></a>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
 
     <main class="main-content">
@@ -77,33 +85,33 @@
 
             <div class="gallery-container">
 
-                <article class="gallery-book-card">
-                    <img src="images/活着.jpg?v=3" alt="《活着》封面 Cover of To Live">
+                <a class="book-card-link" href="book.html?book=活着"><article class="gallery-book-card">
+                    <img src="images/活着.jpg?v=6" alt="《活着》封面 Cover of To Live">
                     <h3>活着 <span class="en-text">To Live</span></h3>
                     <p class="gallery-book-author">余华 <span class="en-text">Yu Hua</span></p>
                     <p class="gallery-book-price"><strong>￥18</strong> <span class="en-text">CNY 18</span></p>
-                </article>
+                    <p class="book-detail-hint">查看详情 <span class="en-text">View Details</span></p></article></a>
 
-                <article class="gallery-book-card">
-                    <img src="images/小王子.jpg?v=3" alt="《小王子》封面 Cover of The Little Prince">
+                <a class="book-card-link" href="book.html?book=小王子"><article class="gallery-book-card">
+                    <img src="images/小王子.jpg?v=6" alt="《小王子》封面 Cover of The Little Prince">
                     <h3>小王子 <span class="en-text">The Little Prince</span></h3>
                     <p class="gallery-book-author">圣埃克苏佩里 <span class="en-text">Saint-Exupéry</span></p>
                     <p class="gallery-book-price"><strong>￥12</strong> <span class="en-text">CNY 12</span></p>
-                </article>
+                    <p class="book-detail-hint">查看详情 <span class="en-text">View Details</span></p></article></a>
 
-                <article class="gallery-book-card">
-                    <img src="images/人类简史.jpg?v=3" alt="《人类简史》封面 Cover of Sapiens">
+                <a class="book-card-link" href="book.html?book=人类简史"><article class="gallery-book-card">
+                    <img src="images/人类简史.jpg?v=6" alt="《人类简史》封面 Cover of Sapiens">
                     <h3>人类简史 <span class="en-text">Sapiens</span></h3>
                     <p class="gallery-book-author">尤瓦尔·赫拉利 <span class="en-text">Yuval Noah Harari</span></p>
                     <p class="gallery-book-price"><strong>￥25</strong> <span class="en-text">CNY 25</span></p>
-                </article>
+                    <p class="book-detail-hint">查看详情 <span class="en-text">View Details</span></p></article></a>
 
-                <article class="gallery-book-card">
-                    <img src="images/平凡的世界.jpg?v=3" alt="《平凡的世界》封面 Cover of The Ordinary World">
+                <a class="book-card-link" href="book.html?book=平凡的世界"><article class="gallery-book-card">
+                    <img src="images/平凡的世界.jpg?v=6" alt="《平凡的世界》封面 Cover of The Ordinary World">
                     <h3>平凡的世界 <span class="en-text">The Ordinary World</span></h3>
                     <p class="gallery-book-author">路遥 <span class="en-text">Lu Yao</span></p>
                     <p class="gallery-book-price"><strong>￥20</strong> <span class="en-text">CNY 20</span></p>
-                </article>
+                    <p class="book-detail-hint">查看详情 <span class="en-text">View Details</span></p></article></a>
 
             </div>
         </section>
@@ -380,7 +388,7 @@
     </footer>
 
     <!-- 交互脚本  |  The interaction script -->
-    <script src="js/main.js?v=3" defer></script>
+    <script src="js/main.js?v=6" defer></script>
 
 </body>
 

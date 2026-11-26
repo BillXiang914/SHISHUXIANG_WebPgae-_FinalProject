@@ -4,8 +4,8 @@
   拾书巷 (Shishuxiang) - 校园二手书交换站
   Campus Second-hand Book Exchange Site  |  留言板页 Message Board Page (contact.html)
   ----------------------------------------------------------------------------
-  负责人 Owner: 李佳豪 Li Jiahao (202412320211)
-  合作者 Collaborator: 向梓辰 Xiang Zichen (202412320227)
+  负责人 Owner: 向梓辰 Xiang Zichen (202412320227)
+  合作者 Collaborator: 李佳豪 Li Jiahao (202412320211) 
   ----------------------------------------------------------------------------
   本页包含一个完整的表单，包括文本框、单选框、复选框、
   下拉框和文本域，并会用 JavaScript 做必填项与邮箱格式验证。
@@ -20,8 +20,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>留言板 Message Board | 拾书巷 Shishuxiang Campus Book Exchange</title>
-    <link rel="shortcut icon" href="images/logo.jpg?v=3" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="shortcut icon" href="images/logo.jpg?v=6" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 
 <body>
@@ -29,16 +29,25 @@
          区块一：顶部导航栏
          BLOCK 1: HEADER / NAVIGATION BAR
          ================================================================== -->
-    <header id="header-top">
-        <h1 class="header-site-title">拾书巷 <span class="en-text">Shishuxiang</span></h1>
+    <header id="header-top" class="site-header">
+        <div class="header-inner">
+            <!-- 站点名称  |  Site Name -->
+            <a href="index.html" class="header-site-title">
+                拾书巷 <span class="en-text">Shishuxiang</span>
+            </a>
 
-        <nav class="header-nav">
-            <div class="header-nav-inner">
+            <!-- 搜索框  |  Search Box -->
+            <form class="header-search" id="header-search-form" role="search">
+                <input type="search" id="header-search-input" placeholder="搜书名或作者 Search by title or writer" aria-label="搜索图书 Search for a book">
+            </form>
+
+            <!-- 导航菜单  |  Navigation -->
+            <nav class="header-nav">
                 <a href="index.html" class="header-nav-link">首页 <span class="en-text">Home</span></a>
                 <a href="detail.html" class="header-nav-link">书单 <span class="en-text">Catalogue</span></a>
                 <a href="contact.html" class="header-nav-link active">留言板 <span class="en-text">Message Board</span></a>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
 
     <main class="main-content">
@@ -281,7 +290,7 @@
     </footer>
 
     <!-- 交互脚本  |  The interaction script -->
-    <script src="js/main.js?v=3" defer></script>
+    <script src="js/main.js?v=6" defer></script>
 
 </body>
 

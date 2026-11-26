@@ -169,12 +169,68 @@ hr {
 /* ==========================================================================
    第 4 部分：页头与导航栏
    PART 4: HEADER AND NAVIGATION
+   --------------------------------------------------------------------------
+   外教建议头部观感欠佳。这里改成常见的网上书店样式：
+   一整条白色横条，左边是站名，右边是导航，中间是搜索框。
+   The teacher said the header did not look good. It now follows the
+   layout of a large online bookshop: one white bar with the site name on
+   the left, the navigation on the right and a search box in the middle.
    ========================================================================== */
+
+/* ---- 整条横条  |  The bar itself ---- */
+.site-header {
+    /* 粘在页面顶部，向下滚动时一直可见  */
+    /* Sticks to the top and stays visible while the user scrolls down */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* 阴影让横条浮在内容上面，不显平  */
+    /* The shadow lifts the bar off the content below it */
+    box-shadow: 0 2px 12px rgba(42, 127, 212, 0.12);
+    /* 滚动到下面时背景变白一点  */
+    /* The background turns solid white once the user scrolls down */
+    background-color: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid var(--color-border);
+    /* 背景有一点点模糊，底下的内容透出来一点点  */
+    /* A touch of blur lets a little of the content show through */
+    backdrop-filter: saturate(180%) blur(12px);
+}
+
+/* ---- 横条内部：站名在左，导航在右  |  Inside the bar ---- */
+.header-inner {
+    max-width: var(--size-content);
+    margin: 0 auto;
+    padding: 0 24px;
+    /* Flexbox 让左右两部分各站一边  */
+    /* Flexbox pushes the two ends apart */
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    /* 高度比原来高一点，站名和导航不再挤在一起  */
+    /* A taller bar gives the name and the links room to breathe */
+    min-height: 74px;
+}
+
+/* ---- 站名  |  The site name ---- */
 .header-site-title {
-    /* 站名颜色使用主色  |  The site name uses the primary colour */
     color: var(--color-primary);
-    /* 字字间距  |  Letter spacing */
     letter-spacing: 3px;
+    /* 不再是普通文字，改成链接  */
+    /* No longer plain text, it is now a link */
+    text-decoration: none;
+    /* 站名不换行  */
+    /* The name stays on one line */
+    white-space: nowrap;
+    font-size: 27px;
+    /* 轻微的悬停效果  */
+    /* A gentle hover effect */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header-site-title:hover {
+    text-decoration: none;
+    opacity: 0.85;
+    transform: translateX(2px);
 }
 
 /* 站名里的英文全部大写  */
@@ -187,51 +243,135 @@ hr {
     /* 大写字母比小写字母宽，字间距略收紧一点更好看  */
     /* Capitals are wider than lower case, so the letter spacing is tightened */
     letter-spacing: 2px;
+    /* 英文比中文小一号，看起来更平衡  */
+    /* The English part is one size smaller, which looks more balanced */
+    font-size: 0.72em;
+    color: var(--color-primary-dk);
 }
 
-/* 导航栏的上边框与下边框  |  Border above and below the nav */
-.header-nav {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
+/* ---- 搜索框  |  The search box ---- */
+.header-search {
+    /* 自动占据中间剩下的空间  */
+    /* Takes up whatever room is left in the middle */
+    flex: 1 1 auto;
+    max-width: 340px;
+    position: relative;
+}
+
+/* 搜索框里的放大镜图标  |  The little magnifying glass */
+.header-search::before {
+    content: "\1F50D";                 /* 放大镜  The magnifier */
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    opacity: 0.55;
+    pointer-events: none;               /* 不挡输入  Does not block typing */
+}
+
+.header-search input {
+    width: 100%;
+    /* 给左边的图标让出位置  */
+    /* Leaves room for the icon on the left */
+    padding: 9px 14px 9px 34px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text);
+    /* 圆角做成胶囊形  */
+    /* A rounded pill shape */
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* 搜索框获得焦点时的样子  |  When the search box has the focus */
+.header-search input:focus {
+    outline: none;
     background-color: var(--color-surface);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(42, 127, 212, 0.15);
 }
 
-/* 导航链接横向排列的关键  |  The key trick for a horizontal nav */
-.header-nav-inner {
-    /* 所有子元素浮动到左侧，就会横向并排  */
-    /* float:left makes each child float to the left, which lines them up in a row */
-    overflow: hidden;                /* 清除浮动，防止父容器高度塌陷  Contains the floats */
-}
-
-/* 浮动清除（旧写法）  |  Legacy float clearing */
-.header-nav-inner::after {
-    content: "";
-    display: table;
-    clear: both;
+/* ---- 导航  |  The navigation ---- */
+.header-nav {
+    /* 推到横条的最右边  */
+    /* Pushed to the right end of the bar */
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* 单个导航链接  |  A single nav link */
 .header-nav-link {
     display: block;
-    float: left;                     /* 浮到左侧，形成横向排列  Float left to line up horizontally */
-    padding: 12px 18px;
+    padding: 9px 15px;
     color: var(--color-text);
-    border-bottom: 2px solid transparent;
-    transition: color 0.3s ease, border-color 0.3s ease;
+    /* 小圆角  */
+    /* A small radius */
+    border-radius: var(--radius-sm);
+    /* 悬停时颜色、背景和位置一起变化  */
+    /* Colour, background and position all change on hover */
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    position: relative;
 }
 
 /* 鼠标悬停时变色  |  Change colour on hover */
 .header-nav-link:hover {
     color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
+    background-color: var(--color-tint);
     text-decoration: none;          /* 悬停时不要下划线  No underline on hover */
+    /* 悬停时轻轻往上挪一点  */
+    /* Nudges up a little on hover */
+    transform: translateY(-2px);
 }
 
 /* 当前所在页面的高亮  |  Highlight the current page */
 .header-nav-link.active {
-    color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
+    color: #ffffff;
+    background-color: var(--color-primary);
     font-weight: bold;
+    /* 当前页不跟着悬停乱动  */
+    /* The current page does not move on hover */
+    transform: none;
+}
+
+.header-nav-link.active:hover {
+    background-color: var(--color-primary-dk);
+}
+
+/* ---- 窄屏时把搜索框藏起来  |  Hide the search box on small screens ---- */
+/* 放在 780px 以下才隐藏，中间尺寸时搜索框会变成窄一点的胶囊  */
+/* It only disappears below 780px; in between it simply becomes a narrow pill */
+@media screen and (max-width: 780px) {
+    .header-search {
+        display: none;
+    }
+}
+
+/* 中间尺寸：站名、搜索框、导航都要挤一点  */
+/* In between, the name, the search box and the nav all tighten up */
+@media screen and (max-width: 1000px) {
+    .header-inner {
+        gap: 14px;
+        min-height: 66px;
+    }
+
+    .header-site-title {
+        font-size: 23px;
+        letter-spacing: 2px;
+    }
+
+    .header-nav-link {
+        padding: 8px 11px;
+        font-size: 15px;
+    }
+
+    .header-search {
+        max-width: 210px;
+    }
 }
 
 
@@ -1802,4 +1942,446 @@ h3 .en-text {
     .notice-rotation-info {
         flex-wrap: wrap;
     }
+}
+
+
+/* ==========================================================================
+   第 16 部分：可点击的书卡 + 书籍详情页
+   PART 16: CLICKABLE BOOK CARDS AND THE BOOK DETAIL PAGE
+   --------------------------------------------------------------------------
+   外教建议点击书卡能打开详情页。这里把整张卡片包在一个链接里，
+   鼠标移上去时卡片抬起，底部滑出"查看详情"。
+
+   The teacher asked that clicking a book card opens the detail page. The
+   whole card is wrapped in a link. On hover the card lifts and a small
+   "View Details" line slides in at the bottom.
+   ========================================================================== */
+
+/* ---- 卡片链接本身不显示任何样式  |  The link wrapper ---- */
+.book-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    /* 卡片之间的间距由外层的 gap 控制  */
+    /* The gap on the parent handles the spacing */
+    height: 100%;
+}
+
+.book-card-link:hover {
+    text-decoration: none;
+}
+
+/* ---- 悬停时"查看详情"滑出来  |  The View Details line slides in ---- */
+.book-detail-hint {
+    margin: 0;
+    padding: 0 16px 16px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: bold;
+    /* 平时藏在卡片外面，悬停时滑进来  */
+    /* Hidden below the card, slides up on hover */
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.book-card-link:hover .book-detail-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 书单页的卡片用 14 号内边距  |  The grid cards use their own padding */
+.book-grid-card .book-detail-hint {
+    padding: 0 14px 14px;
+}
+
+/* 键盘 Tab 键聚焦时也要看得见  |  Keyboard focus must stay visible */
+.book-card-link:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+}
+
+/* ==========================================================================
+   第 17 部分：书籍详情页
+   PART 17: THE BOOK DETAIL PAGE
+   ========================================================================== */
+.section-book-detail {
+    padding: 30px 0 50px;
+}
+
+/* ---- 返回书单的链接  |  The back link ---- */
+.back-link {
+    display: inline-block;
+    margin-bottom: 26px;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 16px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--color-primary-dk);
+    text-decoration: none;
+    transform: translateX(-4px);
+}
+
+.back-arrow {
+    font-size: 18px;
+    margin-right: 4px;
+}
+
+/* ---- 主体：左边封面，右边信息  |  Cover on the left, details on the right ---- */
+.book-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 38px;
+    align-items: flex-start;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 34px;
+    /* 出现时淡入  */
+    /* Fades in when it appears */
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.book-detail.book-detail-ready {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- 封面  |  The cover ---- */
+.book-detail-cover {
+    flex: 0 0 280px;
+}
+
+.book-detail-cover img {
+    width: 100%;
+    /* 封面竖版，限高 380 刚好  */
+    /* The covers are upright, so 380px high is about right */
+    height: 380px;
+    object-fit: contain;
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: var(--color-tint);
+    border-radius: var(--radius-sm);
+    /* 封面有轻微的阴影，像放着一本真书  */
+    /* A soft shadow, like a real book lying on a desk */
+    box-shadow: 0 4px 14px rgba(47, 61, 76, 0.14);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.book-detail-cover:hover img {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 26px rgba(47, 61, 76, 0.22);
+}
+
+/* ---- 右边的信息  |  The information on the right ---- */
+.book-detail-info {
+    flex: 1 1 340px;
+    min-width: 0;
+}
+
+.book-detail-category {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 4px 12px;
+    background-color: var(--color-tint);
+    color: var(--color-primary-dk);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.book-detail-title {
+    margin: 0 0 12px;
+    font-size: 34px;
+    line-height: 1.3;
+}
+
+.book-detail-title .en-text {
+    font-size: 0.62em;
+    color: var(--color-text-muted);
+    font-weight: normal;
+}
+
+.book-detail-writer {
+    margin: 0 0 16px;
+    font-size: 17px;
+    color: var(--color-text-muted);
+}
+
+.book-detail-price {
+    margin: 0 0 18px;
+    font-size: 30px;
+    color: #e08a00;
+    font-weight: bold;
+}
+
+.book-detail-price .en-text {
+    font-size: 0.6em;
+    color: var(--color-text-muted);
+    font-weight: normal;
+}
+
+/* ---- 成书状态  |  The condition ---- */
+.book-detail-condition {
+    margin: 0 0 18px;
+    padding: 12px 16px;
+    background-color: var(--color-tint);
+    border-left: 4px solid var(--color-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+}
+
+.condition-label {
+    font-weight: bold;
+    color: var(--color-primary-dk);
+}
+
+/* ---- 简介  |  The introduction ---- */
+.book-detail-intro {
+    margin: 0 0 20px;
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--color-text);
+}
+
+/* ---- 标签  |  The tags ---- */
+.book-detail-tags {
+    margin: 0 0 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+/* ---- 两个按钮  |  The two buttons ---- */
+.book-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn-secondary {
+    display: inline-block;
+    padding: 12px 22px;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+    background-color: var(--color-surface);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.btn-secondary .en-text {
+    font-weight: normal;
+}
+
+/* ---- 找不到书时  |  When the book is not found ---- */
+.book-detail-missing {
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.book-detail-missing p {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.book-detail-missing .en-text {
+    color: var(--color-text-muted);
+    font-size: 17px;
+}
+
+.book-detail-loading {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   第 18 部分：动画效果
+   PART 18: ANIMATION EFFECTS
+   --------------------------------------------------------------------------
+   外教建议增加动画效果，提升交互感。这里做的是：
+   - 页面往下滚动时，各个小节依次淡入
+   - 书卡悬停时抬起并放大
+   - 按钮按下时轻微收缩
+   - 页面刚打开时，顶部横幅的文字依次出现
+
+   The teacher asked for more animation. As the user scrolls down, each
+   section fades in. The book cards lift and grow on hover, the buttons
+   shrink a little when they are pressed, and the hero text appears in
+   turn when the page first opens.
+   ========================================================================== */
+
+/* ---- 滚动淡入的初始状态  |  The state before a section appears ---- */
+.fade-in {
+    opacity: 0;
+    /* 往上偏移一点，滚动到位时滑进原位  */
+    /* Sits slightly lower and slides up into place */
+    transform: translateY(24px);
+    /* 0.6 秒淡入，并带一点延迟  */
+    /* Fades in over 0.6s, with a little delay */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ---- 已经显示出来的小节  |  A section that has appeared ---- */
+.fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- 书卡悬停  |  The cards lift on hover ---- */
+.gallery-book-card,
+.book-grid-card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* 悬停时抬起得比原来更高一点  */
+.book-card-link:hover .gallery-book-card,
+.book-card-link:hover .book-grid-card {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* 封面也跟着放大一点  */
+.book-card-link:hover .gallery-book-card img,
+.book-card-link:hover .book-grid-card img {
+    transform: scale(1.08);
+}
+
+/* ---- 按钮按下时轻微收缩  |  The buttons shrink when pressed ---- */
+.btn-primary {
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+/* ---- 页面打开时横幅文字依次出现  |  The hero text appears in turn ---- */
+.hero-animate {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 0.7s ease forwards;
+}
+
+.hero-animate-1 { animation-delay: 0.1s; }
+.hero-animate-2 { animation-delay: 0.3s; }
+.hero-animate-3 { animation-delay: 0.5s; }
+
+@keyframes heroIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- 公告轮播的切换动画  |  The notice rotation ---- */
+.notice-text {
+    animation: noticeIn 0.4s ease;
+}
+
+@keyframes noticeIn {
+    from {
+        opacity: 0;
+        transform: translateX(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ---- 如果用户不想看动画，就全部关掉  |  Respect reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    .fade-in,
+    .hero-animate {
+        opacity: 1;
+        transform: none;
+        animation: none;
+        transition: none;
+    }
+
+    .gallery-book-card,
+    .book-grid-card,
+    .book-detail,
+    .book-detail-hint,
+    .header-nav-link,
+    .back-link {
+        transition: none;
+    }
+
+    .book-card-link:hover .gallery-book-card,
+    .book-card-link:hover .book-grid-card {
+        transform: none;
+    }
+}
+
+
+/* ==========================================================================
+   第 19 部分：搜索结果高亮
+   PART 19: HIGHLIGHTING THE SEARCH RESULT
+   ========================================================================== */
+
+/* ---- 搜索提示条  |  The note that says how many were found ---- */
+.search-note {
+    margin: 0 0 24px;
+    padding: 14px 18px;
+    background-color: #fff8e8;
+    border-left: 4px solid var(--color-secondary);
+    border-radius: var(--radius-sm);
+    color: #8a5a00;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.search-note .en-text {
+    color: #a67c2e;
+    font-weight: normal;
+}
+
+/* ---- 被搜索到的书卡  |  The card that matched ---- */
+.book-grid-card.search-hit {
+    /* 金色描边  */
+    /* A golden outline */
+    border: 2px solid var(--color-secondary);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.28);
+    transform: translateY(-4px);
+}
+
+/* 搜索到的卡片加一点点上浮动画  */
+.book-grid-card.search-hit {
+    animation: searchPop 0.6s ease;
+}
+
+@keyframes searchPop {
+    0%   { transform: scale(0.94); }
+    60%  { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }

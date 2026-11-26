@@ -22,6 +22,18 @@
 
 
 /* ==========================================================================
+   资源版本号  |  ASSET VERSION NUMBER
+   --------------------------------------------------------------------------
+   图片和样式表后面都带这个数字。换图或者改样式之后，
+   把这里改成 7，浏览器就会自动拉新的文件。
+
+   The number is added to the image and style sheet links. After an
+   image or the style sheet is changed, raise this number to 7 and the
+   browser will fetch the new file by itself.
+   ========================================================================== */
+var SITE_VERSION = "6";
+
+/* ==========================================================================
    第 1 个功能：页脚年份自动更新
    FEATURE 1: AUTO-UPDATING FOOTER YEAR
    --------------------------------------------------------------------------
@@ -574,6 +586,365 @@ function initFormValidation() {
 
 
 /* ==========================================================================
+   第 7 个功能：书籍数据 + 详情页
+   FEATURE 7: BOOK DATA AND THE DETAIL PAGE
+   --------------------------------------------------------------------------
+   外教建议点击书籍卡片能打开详情页。这里存了全部十三本书的信息，
+   book.html 用地址栏里的 ?book=书名 来找到对应的一本。
+
+   The teacher asked for a detail page that opens when a book card is
+   clicked. All thirteen books are listed here. The book.html page reads
+   the ?book= parameter from the address bar and finds the matching entry.
+   ========================================================================== */
+var BOOK_DATA = {
+    "活着": {
+        title: "活着", en: "To Live", writer: "余华 Yu Hua",
+        category: "文学类 Literature", price: 18,
+        condition: "八新成尺，有少量批注 Good, with a few notes",
+        intro: "余华的长篇小说，叙述一个家庭四代人的命运。书中的主人公众一次次失败去家人，却从不已终止。A long novel by Yu Hua about one family over four generations, and about a man who keeps losing his family but never gives up.",
+        tags: ["中文小说 Chinese novel", "家庭回忆 Family story"]
+    },
+    "小王子": {
+        title: "小王子", en: "The Little Prince", writer: "圣埃克苏佩里 Saint-Exupéry",
+        category: "文学类 Literature", price: 12,
+        condition: "八新，回页有轻微折痕 Like new, a light crease on the back cover",
+        intro: "一位从小星理来的小王子，在小星上遇见一只三半《转尖的小尽》。他用简单的话说起了爱、照顾和正要的事。A little prince who came from a small planet meets a fox on another one. He says simple things about love, care and what really matters.",
+        tags: ["儿童文学 Children's book", "想象小说 A fable"]
+    },
+    "人类简史": {
+        title: "人类简史", en: "Sapiens", writer: "尤瓦尔·赫拉利 Yuval Noah Harari",
+        category: "社科类 Social Science", price: 25,
+        condition: "八新，封面有轻微折痕 Like new, a light crease on the cover",
+        intro: "一本大体量的非小说。作者回顾了历史上的关键转折，展开了点击火造结社会的全过程。A big book of non-fiction. The author looks back at the turning points of history and explains how farming led to societies like the one we live in now.",
+        tags: ["历史 History", "社会科学 Social science"]
+    },
+    "平凡的世界": {
+        title: "平凡的世界", en: "The Ordinary World", writer: "路遥 Lu Yao",
+        category: "文学类 Literature", price: 20,
+        condition: "八新，有少量批注 Like new, with a few notes",
+        intro: "路遥的百万字长篇，叙述孙少平一家三代人在国家变运中的命运。Lu Yao's million-word novel follows the Sun family through three generations while the country changes around them.",
+        tags: ["中文小说 Chinese novel", "历史活属 A period drama"]
+    },
+    "人间失格": {
+        title: "人间失格", en: "No Longer Human", writer: "太容治 Osamu Dazai",
+        category: "文学类 Literature", price: 15,
+        condition: "八新，内页存在无关紫迹 Like new, no marks inside",
+        intro: "太宲治的自传体小说。主人公大兰离封与世界，从而开始看不见人。A famous Japanese novel by Osamu Dazai. The main character breaks off from the world and slowly stops being able to see people.",
+        tags: ["日本文学 Japanese literature", "自传 A memoir"]
+    },
+    "追风筝的人": {
+        title: "追风筝的人", en: "The Kite Runner", writer: "卡勒德·胡赛尼 Khaled Hosseini",
+        category: "文学类 Literature", price: 22,
+        condition: "八新，封面有轻微磨损 Slight wear on the cover, otherwise like new",
+        intro: "一个关于羊阵、红色飞与彼得的故事，叙述两个友人之间的那种爱与罪感。A story about a kite, a red kite and a boy named Peter, about the love and the guilt between two friends.",
+        tags: ["历史小说 A historical novel", "人物 A character study"]
+    },
+    "乡土中国": {
+        title: "乡土中国", en: "From the Soil", writer: "费孝通 Fei Xiaotong",
+        category: "社科类 Social Science", price: 28,
+        condition: "八新，封面很新 Like new, the cover is very clean",
+        intro: "费孝通从乡村社会的视角研究中国农村的民族、社会与法律。Fei Xiaotong studies the people, the society and the rules of rural China, seen from the point of view of the countryside.",
+        tags: ["社会学 Social studies", "国家研究 National studies"]
+    },
+    "消费社会": {
+        title: "消费社会", en: "The Consumer Society", writer: "让·波伏娅 Simone de Beauvoir",
+        category: "社科类 Social Science", price: 20,
+        condition: "八新，内页干净 Like new, the pages are clean",
+        intro: "使得波伏娅选集里的文章，讨论中国现代社会中消费的意义与种类。A collection of essays by Simone de Beauvoir about what consumption means in modern Chinese society, and what kind of society it can create.",
+        tags: ["社会科学 Social science", "文集 An essay collection"]
+    },
+    "国家与社会": {
+        title: "国家与社会", en: "The Nation and Society", writer: "托马斯·霍克马特 Carl Schmitt",
+        category: "社科类 Social Science", price: 16,
+        condition: "八新，有少量批注 Like new, with a few notes",
+        intro: "美国政治思想家写关于国家、民族与治理关系的经典工作。A classic work by the German political thinker on the relation between the state, the people and politics.",
+        tags: ["政治学 Political theory", "经典 A classic"]
+    },
+    "高等数学": {
+        title: "高等数学", en: "Advanced Mathematics", writer: "同济大学出版社 Tongji University Press",
+        category: "学科教材 Course Books", price: 18,
+        condition: "八新，无任何批注 Like new, no notes at all",
+        intro: "高等数学的通常教材，包含高等数学、简明线性代数、微积分与多变量函数、微分方程、无级结构与微分方程等章节。The usual textbook for the first year course, covering higher algebra, linear algebra, calculus, differential equations and probability.",
+        tags: ["高数 Higher mathematics", "教材 A textbook"]
+    },
+    "数据结构": {
+        title: "数据结构", en: "Data Structures", writer: "清华大学出版社 Tsinghua University Press",
+        category: "学科教材 Course Books", price: 22,
+        condition: "八新，有少量批注 Like new, with a few notes",
+        intro: "让加非阿莲的经典教材，讲讲线性表、栈、队列、树、图、排序和查找等基本数据结构。The classic textbook for students who are not in computer science. It covers lists, stacks, queues, trees, graphs, sorting and searching.",
+        tags: ["计算机 Computer science", "教材 A textbook"]
+    },
+    "计算机网络": {
+        title: "计算机网络", en: "Computer Networks", writer: "清华大学出版社 Tsinghua University Press",
+        category: "学科教材 Course Books", price: 28,
+        condition: "八新，封面很新 Like new, the cover is very clean",
+        intro: "计算机网络的经典教材，讲讲物理层、数据链路层、网络层、传输层和应用层。The classic textbook on computer networks, covering the physical layer, the data link layer, the network layer, the transport layer and the application layer.",
+        tags: ["计算机 Computer science", "教材 A textbook"]
+    },
+    "普通物理": {
+        title: "普通物理", en: "General Physics", writer: "高等教育出版社 Higher Education Press",
+        category: "学科教材 Course Books", price: 15,
+        condition: "八新，内页有少量提问笔迹 Like new, a few pencil marks inside",
+        intro: "普通物理的通常教材，覆盖力学、热学、震动、光学和量子物理的基础内容。The usual textbook for general physics, covering mechanics, heat, vibration, optics and quantum physics.",
+        tags: ["物理 Physics", "教材 A textbook"]
+    }
+};
+
+
+/* ==========================================================================
+   第 8 个功能：渲染书籍详情页
+   FEATURE 8: RENDERING THE BOOK DETAIL PAGE
+   --------------------------------------------------------------------------
+   从地址栏读出 ?book=书名，在 BOOK_DATA 里找到对应的一本书，
+   然后把封面、书名、作者、价格、状态和简介填进页面。
+
+   Reads the ?book= parameter from the address bar, finds the matching
+   book in BOOK_DATA, and writes the cover, the title, the writer, the
+   price, the condition and the description onto the page.
+   ========================================================================== */
+function initBookDetail() {
+    var box = document.getElementById("book-detail");
+
+    // 这个页面才需要，其他页面没有这个元素
+    // Only this page needs it; the other pages have no such element
+    if (!box) {
+        return;
+    }
+
+    // 从地址栏取出书名  |  Pull the book title out of the address bar
+    var params = new URLSearchParams(window.location.search);
+    var wanted = params.get("book");
+
+    // 没带参数，或者带了不存在的书名
+    // No parameter, or a book name we do not know
+    if (!wanted || !BOOK_DATA[wanted]) {
+        box.innerHTML = '<div class="book-detail-missing">' +
+            '<p>\u6ca1\u6709\u627e\u5230\u8fd9\u672c\u4e66\u3002</p>' +
+            '<p class="en-text">We could not find that book.</p>' +
+            '<a href="detail.html" class="btn-primary">\u56de\u5230\u4e66\u5355 ' +
+            '<span class="en-text">Back to the Catalogue</span></a></div>';
+        return;
+    }
+
+    var b = BOOK_DATA[wanted];
+
+    // 用模板字符串拼出整块内容
+    // Build the whole block from a template string
+    var html =
+        '<div class="book-detail-cover">' +
+            '<img src="images/' + wanted + '.jpg?v=' + SITE_VERSION + '" alt="\u300a' + b.title +
+            '\u300b\u5c01\u9762 Cover of ' + b.en + '">' +
+        '</div>' +
+        '<div class="book-detail-info">' +
+            '<p class="book-detail-category">' + b.category + '</p>' +
+            '<h2 class="book-detail-title">' + b.title +
+                ' <span class="en-text">' + b.en + '</span></h2>' +
+            '<p class="book-detail-writer">\u4f5c\u8005 Writer: ' + b.writer + '</p>' +
+            '<p class="book-detail-price"><strong>\uffe5' + b.price + '</strong>' +
+                ' <span class="en-text">CNY ' + b.price + '</span></p>' +
+            '<p class="book-detail-condition"><span class="condition-label">' +
+                '\u6210\u4e66 Condition:</span> ' + b.condition + '</p>' +
+            '<p class="book-detail-intro">' + b.intro + '</p>' +
+            '<p class="book-detail-tags">' +
+                b.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') +
+            '</p>' +
+            '<div class="book-detail-actions">' +
+                '<a href="contact.html?book=' + encodeURIComponent(wanted) +
+                    '" class="btn-primary">\u6211\u60f3\u6362\u8fd9\u672c\u4e66 ' +
+                    '<span class="en-text">I want to exchange this book</span></a>' +
+                '<a href="detail.html" class="btn-secondary">\u8fd4\u56de\u4e66\u5355 ' +
+                    '<span class="en-text">Back to the Catalogue</span></a>' +
+            '</div>' +
+        '</div>';
+
+    box.innerHTML = html;
+
+    // 改掉网页标签的标题，显示当前这本书
+    // Put the name of this book into the tab title
+    document.title = b.title + ' ' + b.en + ' | \u62fe\u4e66\u5df7 Shishuxiang';
+
+    // 加上淡入动画
+    // Add the fade-in animation
+    box.classList.add("book-detail-ready");
+}
+
+
+/* ==========================================================================
+   第 9 个功能：滚动淡入动画
+   FEATURE 9: FADE IN ANIMATION WHILE SCROLLING
+   --------------------------------------------------------------------------
+   外教建议增加动画效果。这里让每个小节在滚动进入画面时淡入，
+   看起来更有层次。IntersectionObserver 是浏览器自带的观察工具。
+
+   The teacher asked for more animation. Each section fades in as it
+   comes into view. IntersectionObserver is a tool that every current
+   browser has built in, so no extra file is needed.
+   ========================================================================== */
+function initScrollAnimation() {
+    // 找到所有需要淡入的小节
+    // Find every section that should fade in
+    var sections = document.querySelectorAll(".section-banner, " +
+        ".section-gallery, .section-about, .section-schedule, " +
+        ".section-notice, .section-page-intro, .section-book-group, " +
+        ".section-price, .section-tips, .section-register, .section-faq, " +
+        ".section-book-detail");
+
+    if (sections.length === 0) {
+        return;
+    }
+
+    // 先全部加上 fade-in 类，CSS 里默认是透明的
+    // Give them all the class first; the CSS starts them out transparent
+    for (var i = 0; i < sections.length; i++) {
+        sections[i].classList.add("fade-in");
+    }
+
+    // 如果浏览器不支持 IntersectionObserver，就直接全部显示
+    // If the browser does not support it, simply show everything
+    if (!("IntersectionObserver" in window)) {
+        for (var j = 0; j < sections.length; j++) {
+            sections[j].classList.add("is-visible");
+        }
+        return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                // 进入了画面，就显示出来，并且停止观察
+                // It has come into view, so show it and stop watching it
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        // 元素露出 12% 就开始动画，比完全进入画面更早一点
+        // Start when 12% of the element shows, a little before it is fully in view
+        threshold: 0.12
+    });
+
+    for (var k = 0; k < sections.length; k++) {
+        observer.observe(sections[k]);
+    }
+}
+
+
+/* ==========================================================================
+   第 10 个功能：顶部搜索框
+   FEATURE 10: THE SEARCH BOX IN THE HEADER
+   --------------------------------------------------------------------------
+   在搜索框里输入书名或作者，按回车，就跳到书单页，
+   并且那本书会被高亮出来。
+
+   Type a book title or a writer in the search box and press Enter. The
+   site opens the catalogue and the matching book is highlighted.
+   ========================================================================== */
+function initHeaderSearch() {
+    var form = document.getElementById("header-search-form");
+    var input = document.getElementById("header-search-input");
+
+    if (!form || !input) {
+        return;
+    }
+
+    form.addEventListener("submit", function (event) {
+        // 阻止表单默认的跳转行为，我们自己控制
+        // Stop the form's own jump, we handle it ourselves
+        event.preventDefault();
+
+        var keyword = input.value.trim();
+
+        if (keyword === "") {
+            // 没输入东西就直接去书单页
+            // Nothing typed, so just open the catalogue
+            window.location.href = "detail.html";
+            return;
+        }
+
+        // 把关键词放进地址栏的书单页
+        // Put the keyword into the catalogue page address
+        window.location.href = "detail.html?search=" + encodeURIComponent(keyword);
+    });
+}
+
+
+/* ==========================================================================
+   第 11 个功能：欢迎区文字依次出现
+   FEATURE 11: THE HERO TEXT APPEARS IN TURN
+   --------------------------------------------------------------------------
+   页面刚打开时，标题、段落、按钮依次淡入。
+
+   When the page opens, the heading, the paragraph and the button fade in
+   one after another.
+   ========================================================================== */
+function initHeroAnimation() {
+    var banner = document.querySelector(".section-banner");
+
+    if (!banner) {
+        return;
+    }
+
+    var heading = banner.querySelector("h2");
+    var paragraph = banner.querySelector("p");
+    var button = banner.querySelector(".btn-primary");
+
+    if (heading) { heading.classList.add("hero-animate", "hero-animate-1"); }
+    if (paragraph) { paragraph.classList.add("hero-animate", "hero-animate-2"); }
+    if (button) { button.classList.add("hero-animate", "hero-animate-3"); }
+}
+
+
+/* ==========================================================================
+   第 12 个功能：在书单页高亮搜索结果
+   FEATURE 12: HIGHLIGHTING THE SEARCH RESULT ON THE CATALOGUE PAGE
+   --------------------------------------------------------------------------
+   搜索页跳过来时，地址栏里带着 ?search=关键词。
+   这里找到匹配的书，给它加上高亮样式。
+
+   When the visitor arrives from the search box, the address carries
+   ?search=keyword. Here we find the matching book and mark it.
+   ========================================================================== */
+function initSearchHighlight() {
+    var params = new URLSearchParams(window.location.search);
+    var keyword = params.get("search");
+
+    if (!keyword) {
+        return;
+    }
+
+    var keywordLower = keyword.toLowerCase();
+
+    // 找到每张书卡，看卡里的文字有没有包含关键词
+    // Look at every book card and see whether its text holds the keyword
+    var cards = document.querySelectorAll(".book-grid-card");
+
+    for (var i = 0; i < cards.length; i++) {
+        var text = cards[i].textContent.toLowerCase();
+
+        if (text.indexOf(keywordLower) !== -1) {
+            cards[i].classList.add("search-hit");
+        }
+    }
+
+    // 告诉用户找到了几本
+    // Tell the visitor how many were found
+    var hits = document.querySelectorAll(".book-grid-card.search-hit");
+
+    if (hits.length > 0) {
+        var note = document.createElement("p");
+        note.className = "search-note";
+        note.innerHTML = '\u641c\u7d22 "' + keyword + '" \u627e\u5230 ' +
+            hits.length + ' \u672c\u4e66\u3002 <span class="en-text">Found ' +
+            hits.length + ' book(s) for "' + keyword + '".</span>';
+        var first = document.querySelector(".section-book-group");
+        if (first && first.parentNode) {
+            first.parentNode.insertBefore(note, first);
+        }
+    }
+}
+
+
+/* ==========================================================================
    页面载入时启动所有功能
    RUN EVERYTHING WHEN THE PAGE LOADS
    --------------------------------------------------------------------------
@@ -608,6 +979,17 @@ function startEverything() {
     // 留言板页专用
     // Message board page only
     initFormValidation();
+
+    // 书籍详情页专用
+    // Book detail page only
+    initBookDetail();
+
+    // 动画：滚动淡入、欢迎区依次出现、搜索框
+    // Animation: fade in on scroll, the hero text, the search box
+    initScrollAnimation();
+    initHeroAnimation();
+    initHeaderSearch();
+    initSearchHighlight();
 }
 
 if (document.readyState === "loading") {
