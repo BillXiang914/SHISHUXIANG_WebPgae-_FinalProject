@@ -1,0 +1,1805 @@
+/* ==========================================================================
+   拾书巷 (Shishuxiang) - 校园二手书交换站  全站样式表
+   Campus Second-hand Book Exchange Site - Main Stylesheet
+   ----------------------------------------------------------------------------
+   负责人 Owner: 李佳豪 Li Jiahao (202412320211)
+   合作者 Collaborator: 向梓辰 Xiang Zichen (202412320227)
+   ----------------------------------------------------------------------------
+   文件方式 External Stylesheet
+   引入方式：在每个 HTML 的 <head> 里加一行
+     <link rel="stylesheet" href="css/style.css">
+
+   本文件分 12 个部分：
+     1.  设计变量        Design tokens
+     2.  基础重置          Base reset
+     3.  页面轮架          Page frame
+     4.  页头与导航栏    Header and navigation
+     5.  欢迎区与按钮    Hero section and buttons
+     6.  卡片画廊            Card gallery (Flexbox)
+     7.  双栏布局            Two-column layout (float)
+     8.  表格                    Tables
+     9.  公告列表              Notice list
+     10. 过滤按钮              Filter buttons
+     11. 表单                    Forms
+     12. 页脚 + 响应式        Footer and responsive rules
+   ========================================================================== */
+
+
+/* ==========================================================================
+   第 1 部分：CSS 变量（配色方案 + 共享尺寸）
+   PART 1: DESIGN TOKENS (colour scheme + shared sizes)
+
+   把颜色和尺寸集中定义在 :root 里，后面全部用 var(--xxx) 引用。
+   这样想换颜色时，只要改这里的一处即可，全站都会变。
+   Defining the colours and sizes once in :root and referencing them with var()
+   means a colour can be changed in one single place for the whole site.
+   ========================================================================== */
+:root {
+    /* ---- 颜色：天蓝 + 奶黄（明亮活民）  |  COLOURS: sky blue + cream yellow (bright) ---- */
+    --color-bg:          #f7fbff;   /* 页面背景（极浅府蓝）              Page background */
+    --color-surface:     #ffffff;   /* 卡片 / 表单白底面                Card and form surface */
+    --color-primary:     #2a7fd4;   /* 主色（清晴天蓝）链接、按钮、标题  Primary */
+    --color-primary-dk:  #1c62a8;   /* 主色 hover 状态                      Primary on hover */
+    --color-secondary:   #f5a623;   /* 次色（奶黄橙）价格等强调        Secondary accent */
+    --color-text:        #2f3d4c;   /* 正文（深灰蓝）                    Body text */
+    --color-text-muted:  #7b8b9c;   /* 辅助文字（浅灰蓝）              Muted text */
+    --color-border:      #dceaf7;   /* 边框（浅天蓝）                        Borders */
+    --color-tint:        #eaf4fd;   /* 浅底色（表头、侧栏、注释框）     Light tint fill */
+
+    /* ---- 尺寸  |  SIZES ---- */
+    --size-content:      1180px;   /* 内容区最大宽度                    Content column max width */
+    --radius:            6px;       /* 圆角                                        Border radius */
+    --radius-sm:         4px;       /* 小圆角（按钮）                        Small radius (buttons) */
+
+    /* ---- 影子（只用单层，不用光晕）  |  SHADOW (single layer, never a glow) ---- */
+    --shadow-card:       0 2px 8px rgba(42, 127, 212, 0.10);   /* 卡片阴影                    Card shadow */
+    --shadow-card-hover: 0 6px 16px rgba(42, 127, 212, 0.20);  /* 卡片悬停阴影              Card shadow on hover */
+}
+
+
+/* ==========================================================================
+   第 2 部分：基础重置
+   PART 2: BASE RESET
+
+   通配符 * 会把所有元素的默认边距和间距都清零，
+   让你之后写的位置不会被默认值干扰。
+   The universal selector clears the default margin and padding of every element
+   so that all spacing is controlled by this stylesheet instead of by the browser.
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    /* 盒子模型：width 包含 padding 和 border，不会把盒子撑大  */
+    /* border-box makes width include padding and border, so boxes never overflow */
+    box-sizing: border-box;
+}
+
+/* 页面默认字体和行高  |  Default font and line height */
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", "SimSun", sans-serif;
+    /* 只用系统自带字体，不用网络字体  */
+    /* System fonts only - no web fonts, keeps the site fast and simple */
+    /* 正文字号设为 18px，在外教的屏幕上读书更舒服  */
+    /* 18px for the body text, which reads far more comfortably on a projector */
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+/* 链接的默认样式  |  Default link style */
+a {
+    color: var(--color-primary);
+    text-decoration: none;          /* 去掉默认的下划线  Remove the underline */
+    transition: color 0.3s ease;     /* 缓带的颜色变化  Smooth colour change */
+}
+
+/* 鼠标悬停在链接上  |  Link hover state */
+a:hover {
+    color: var(--color-primary-dk);
+    text-decoration: underline;
+}
+
+/* 标题的默认样式  |  Heading defaults */
+h1, h2, h3 {
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+/* h1 正文页面只有一个，尺寸最大  */
+h1 { font-size: 32px; }
+h2 {
+    font-size: 25px;
+    color: var(--color-primary);      /* 一级区块标题用主色  Section headings use the primary colour */
+    margin-bottom: 16px;
+}
+h3 { font-size: 20px; }
+
+/* 段落之间的间距  |  Spacing between paragraphs */
+p { margin-bottom: 12px; }
+
+/* 图片不会被挤出容器  |  Images never overflow their container */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* 列表项之间的间距  |  Spacing between list items */
+li { margin-bottom: 6px; }
+
+
+/* ==========================================================================
+   第 3 部分：页面轮架（内容区宽度与区块间距）
+   PART 3: PAGE FRAME (content width and section spacing)
+   ========================================================================== */
+
+/* 内容区宽度限制 + 居中  |  Centre the content column */
+.main-content,
+.header-nav-inner,
+.footer-inner {
+    max-width: var(--size-content);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 各个 section 之间的间距  |  Space between the main sections */
+.section-banner,
+.section-gallery,
+.section-about,
+.section-schedule,
+.section-notice,
+.section-page-intro,
+.section-book-group,
+.section-price,
+.section-tips,
+.section-register,
+.section-faq {
+    padding: 36px 0;
+}
+
+/* 分隔线（hr）的样式  |  Style for the horizontal rule */
+.section-price hr,
+hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 24px 0;
+}
+
+
+/* ==========================================================================
+   第 4 部分：页头与导航栏
+   PART 4: HEADER AND NAVIGATION
+   ========================================================================== */
+.header-site-title {
+    /* 站名颜色使用主色  |  The site name uses the primary colour */
+    color: var(--color-primary);
+    /* 字字间距  |  Letter spacing */
+    letter-spacing: 3px;
+}
+
+/* 站名里的英文全部大写  */
+/* The English half of the site name is set in capitals */
+.header-site-title .en-text {
+    /* text-transform 把小写字母显示成大写，源文件里仍然写正常的拼写  */
+    /* text-transform displays the letters in capitals while the source file */
+    /* still holds the normal spelling  */
+    text-transform: uppercase;
+    /* 大写字母比小写字母宽，字间距略收紧一点更好看  */
+    /* Capitals are wider than lower case, so the letter spacing is tightened */
+    letter-spacing: 2px;
+}
+
+/* 导航栏的上边框与下边框  |  Border above and below the nav */
+.header-nav {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+}
+
+/* 导航链接横向排列的关键  |  The key trick for a horizontal nav */
+.header-nav-inner {
+    /* 所有子元素浮动到左侧，就会横向并排  */
+    /* float:left makes each child float to the left, which lines them up in a row */
+    overflow: hidden;                /* 清除浮动，防止父容器高度塌陷  Contains the floats */
+}
+
+/* 浮动清除（旧写法）  |  Legacy float clearing */
+.header-nav-inner::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* 单个导航链接  |  A single nav link */
+.header-nav-link {
+    display: block;
+    float: left;                     /* 浮到左侧，形成横向排列  Float left to line up horizontally */
+    padding: 12px 18px;
+    color: var(--color-text);
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 鼠标悬停时变色  |  Change colour on hover */
+.header-nav-link:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    text-decoration: none;          /* 悬停时不要下划线  No underline on hover */
+}
+
+/* 当前所在页面的高亮  |  Highlight the current page */
+.header-nav-link.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: bold;
+}
+
+
+/* ==========================================================================
+   第 5 部分：欢迎区与按钮
+   PART 5: HERO SECTION AND BUTTONS
+   ========================================================================== */
+.section-banner {
+    /* 欢迎区用一张背景图。图片不存在时会看不到、也不会拆页  */
+    /* A background image. If the file is missing the background simply stays plain */
+    background-image: url("../images/banner.jpg");
+    /* background-size:cover 让图片撑满区域而不变形  */
+    /* background-size:cover makes the image fill the area without distorting it */
+    background-size: cover;
+    background-position: center 45%;
+    background-color: var(--color-tint);
+    /* 背景图保持原色彩鲜明，不再加白色蒙版  */
+    /* The picture stays fully vivid - the overlay layer is gone. Readability is */
+    /* achieved by giving the text its own solid panel instead. */
+    /* 左侧蓝线作为视觉锚点  */
+    /* The blue stripe on the left acts as a visual anchor */
+    border-left: 6px solid var(--color-primary);
+    padding: 34px 32px;
+    border-radius: var(--radius);
+}
+
+/* 欢迎区里的内容底艶放白色底，上面展示文字 */
+/* The hero heading and the paragraph share one panel style */
+.section-banner h2,
+.section-banner p {
+    /* 文字块用实心白色底板，与背景形成强对比  */
+    /* A solid white panel. The background picture keeps its vivid colours */
+    /* and the text keeps full contrast - the two never fight each other. */
+    background-color: #ffffff;
+    /* 左侧蓝线加强定位感  */
+    /* The blue rule on the left anchors the panel */
+    border-left: 5px solid var(--color-primary);
+    /* 右上圆角，左下角直角跟着蓝线  */
+    /* Rounded on the right, square on the left where the blue rule runs */
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 18px;
+    /* 宽度受限，不拉到整个区块  */
+    /* A limited width so the panel does not stretch across the whole section */
+    max-width: 520px;
+    margin-bottom: 14px;
+    /* 阴影让白底板从背景图上脱离出来  */
+    /* A shadow lifts the white panel off the busy background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* 欢迎区的介绍段落：黑体加粗  */
+/* The introductory paragraph: Heiti (a heavier Chinese sans-serif) and bold */
+.section-banner p {
+    /* 黑体，比正文的默认字体更粗笨  */
+    /* SimHei is the Windows Chinese "Heiti" typeface - heavier than the body font */
+    font-family: "SimHei", "黑体", "Heiti SC", "Microsoft YaHei", sans-serif;
+    /* 加粗，让段落在白底板上更算得着  */
+    /* Bold on top of Heiti makes the paragraph unmistakable */
+    font-weight: 700;
+    /* 深色文字，对白底板对比最清晰  */
+    /* A near-black text colour gives the strongest contrast on the white panel */
+    color: #1a2733;
+    /* 字号放大到 19px，在外教的投影上也能看清  */
+    /* 19px, so the text stays readable even on a classroom projector */
+    font-size: 19px;
+    /* 行高放宽到 2.0，加粗后不会太紧  */
+    /* A loose line height of 2.0, because bold text looks cramped otherwise */
+    line-height: 2.0;
+    padding: 14px 20px;
+    margin-bottom: 16px;
+}
+
+/* 欢迎区的大标题略大  |  Slightly larger heading in the hero */
+.section-banner h2 {
+    /* 标题改用深蓝色，对白底板对比最清楚  */
+    /* The heading uses a deep blue, which reads most clearly on the white panel */
+    color: #14487f;
+    /* 字号略大一点，增加字符的规觉重量  */
+    /* Slightly larger and bold, so it stays legible from a distance */
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    /* 标题块的内边距收紧一点，让整体更紧凑  */
+    /* Tighter padding on the heading block so the panel group reads as one unit */
+    padding: 8px 18px;
+    /* 标题与段落之间的间距  */
+    /* Space between the heading and the paragraph below it */
+    margin-bottom: 8px;
+}
+
+/* 欢迎区的按钮也要在蒙版层之上  */
+/* The button must also sit above the overlay layer */
+.section-banner .btn-primary {
+    position: relative;
+    z-index: 1;
+    /* 按钮背景不透明，完全不受背景影响  */
+    /* The button background is fully opaque, completely unaffected by the background */
+    box-shadow: 0 3px 10px rgba(42, 127, 212, 0.30);
+}
+
+/* ---- 按钮  |  BUTTONS ---- */
+/* 主按钮：实色背景 + 白字  |  Primary button: solid fill with white text */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 9px 22px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-primary);
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dk);
+    color: #ffffff;
+    text-decoration: none;          /* 按钮上不要下划线  No underline on a button */
+}
+
+/* 次按钮：轮廓框版  |  Secondary button: outlined style */
+.btn-secondary {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--color-primary);
+    padding: 9px 22px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-tint);
+    border-color: var(--color-primary);
+    color: var(--color-primary-dk);
+    text-decoration: none;
+}
+
+
+/* ==========================================================================
+   第 6 部分：卡片画廊（Flex 布局）
+   PART 6: CARD GALLERY (Flexbox)
+
+   画廊用 display:flex + flex-wrap:wrap 实现自动换行。
+   The gallery uses display:flex with flex-wrap:wrap so the cards wrap onto
+   the next line automatically when the container gets too narrow.
+   ========================================================================== */
+
+/* 画廊容器  |  The gallery container */
+.gallery-container {
+    display: flex;                       /* 开启弹性布局，子元素横向排列  Turns on Flexbox */
+    flex-wrap: wrap;                    /* 空间不足时自动换行  Wrap when there is not enough room */
+    gap: 20px;                          /* 子元素之间的间距  Gap between the cards */
+}
+
+/* 单张书卡片  |  A single book card */
+.gallery-book-card {
+    /* flex-basis 表示卡片的基础宽度，上限 33% 就是一行三张  */
+    /* flex-basis is the starting width; capped at 33% so three cards fit in a row */
+    flex: 1 1 240px;
+    max-width: 340px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* 卡片悬停时阴影加深  |  Deepen the shadow on hover */
+.gallery-book-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    /* 整个卡片略缩放大 1.02 倍，效果很轻，不会太过于浮扯  */
+    /* Scale the whole card up slightly - a very light effect that does not look flashy */
+    transform: translateY(-3px);
+}
+
+/* 卡片里的图片  |  The image inside a card */
+/* 用 contain 让整张封面完整显示，不要裁掉封面上的书名  */
+/* object-fit:contain shows the WHOLE cover - cropping would cut the title off */
+.gallery-book-card img {
+    width: 100%;
+    height: 230px;
+    padding: 12px;                        /* 封面四周留白，图片不贴边  Padding around the cover */
+    box-sizing: border-box;               /* padding 算进宽高里  Padding counts inside the box */
+    object-fit: contain;                   /* 完整显示，不裁切  Show the whole picture */
+    background-color: var(--color-tint);   /* 图片未加载时的底色  Placeholder tint */
+    transition: transform 0.4s ease;        /* 放大动画的过渡  Transition for the zoom */
+}
+
+/* 悬停时图片放大  |  Zoom the picture on hover */
+.gallery-book-card:hover img {
+    transform: scale(1.05);
+}
+
+/* 卡片内文字的内边距  |  Inner padding of the card text */
+.gallery-book-card h3,
+.gallery-book-card p {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.gallery-book-card h3 {
+    margin-top: 14px;
+    margin-bottom: 4px;
+}
+
+/* 作者使用辅助颜色  |  The author line uses the muted colour */
+.gallery-book-author {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* 价格使用次色加粗  |  The price uses the secondary colour, bold */
+.gallery-book-price {
+    color: #e08a00;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+
+/* ==========================================================================
+   第 6b 部分：书籍网格（Grid 布局）
+   PART 6b: BOOK GRID (CSS Grid)
+
+   首页的画廊用 Flex（流动布局），书单页的网格用 Grid（规整布局）。
+   同一个站点采用两种布局方式，是因为两页的内容形态不同。
+   The home page gallery uses Flex (a fluid layout) while the catalogue uses Grid
+   (a rigid one). Two layout systems on one site, because the two pages hold
+   different kinds of content.
+   ========================================================================== */
+
+/* 网格容器  |  The grid container */
+.book-grid {
+    /* display:grid 开启网格布局  Turns on Grid layout */
+    display: grid;
+    /* repeat(4,1fr) 表示四列，每列宽度相等（fr 是剩余空间的占比）  */
+    /* repeat(4,1fr) means four equal columns; fr is a share of the leftover space */
+    grid-template-columns: repeat(4, 1fr);
+    /* gap 是单元格之间的间距  The gap between the cells */
+    gap: 20px;
+}
+
+/* 单张书卡片  |  A single book card in the grid */
+.book-grid-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.book-grid-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-3px);
+}
+
+/* 卡片里的图片  |  The image inside a grid card */
+/* 用 contain 让整张封面完整显示，不要裁掉封面上的书名  */
+/* object-fit:contain shows the WHOLE cover - cropping would cut the title off */
+.book-grid-card img {
+    width: 100%;
+    height: 260px;
+    padding: 14px;
+    box-sizing: border-box;               /* padding 算进宽高里  Padding counts inside the box */
+    object-fit: contain;                   /* 完整显示，不裁切  Show the whole picture */
+    background-color: var(--color-tint);
+    transition: transform 0.4s ease;
+}
+
+.book-grid-card:hover img {
+    transform: scale(1.05);
+}
+
+/* 卡片内文字的内边距  |  Inner padding of the grid card text */
+.book-grid-card h3,
+.book-grid-card p {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.book-grid-card h3 {
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+/* 作者使用辅助颜色  |  The author line uses the muted colour */
+.book-grid-author {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+/* 价格使用次色加粗  |  The price uses the secondary colour, bold */
+.book-grid-price {
+    color: #e08a00;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+/* ==========================================================================
+   第 7 部分：双栏布局（浮动）
+   PART 7: TWO-COLUMN LAYOUT (float)
+
+   左边主栏 + 右边侧栏。侧栏用 float:right 浮到右侧，
+   主栏内容就会自动绕绕它。
+   A main column on the left and a sidebar on the right. The sidebar floats right
+   and the main text wraps around it.
+   ========================================================================== */
+/* 双栏布局  |  THE TWO-COLUMN LAYOUT */
+/* 双栏布局  |  THE TWO-COLUMN LAYOUT */
+
+/* 侧边栏  |  The sidebar */
+
+.layout-side-col h3 {
+    /* 标题字号和主栏的 h3 一致  */
+    /* The heading matches the size of the h3 in the main column */
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* 侧栏里的列表去掉圆点  |  Remove the bullets in the sidebar list */
+.layout-side-col ul {
+    list-style-type: none;              /* list-style-type:none 去掉默认圆点  Removes the default bullets */
+}
+
+.layout-side-col li {
+    padding-left: 16px;
+    position: relative;
+    /* 微灰蓝色保留，但字号提到 16px  */
+    /* The muted colour stays, but the size rises to 16px */
+    color: var(--color-text-muted);
+    font-size: 16px;
+    /* 两条问题之间的距离  */
+    /* The space between two questions */
+    margin-bottom: 18px;
+}
+
+/* 用一个小圆点作为自定义项目符  |  A small dot as a custom bullet */
+.layout-side-col li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+}
+
+/* ---- 常见问题：问题和答案分开排版  ---- */
+/* The FAQ: the question and the answer are styled separately */
+
+/* 问题加粗，是深色  */
+/* The question, in bold and in the darker colour */
+.faq-q {
+    font-weight: bold;
+    color: var(--color-text);
+    /* 问题和答案之间留一点距离  */
+    /* A little space between the question and the answer */
+    margin-bottom: 4px;
+}
+
+/* 答案用普通的浅色，字号略小  */
+/* The answer, in the muted colour and slightly smaller */
+.faq-a {
+    /* 缩进一点，视觉上从属于问题  */
+    /* Indented a little, so it reads as belonging to the question */
+    margin: 0;
+    /* 答案字号提到 15px，不再细得看不清  */
+    /* The answer rises to 15px, no longer too small to read */
+    font-size: 15px;
+    /* 行高放宽到 1.8  */
+    /* A looser line height of 1.8 */
+    line-height: 1.8;
+}
+
+/* 最后一条答案下面不要多余的空间  */
+/* The last answer needs no extra space under it */
+.layout-side-col li:last-child .faq-a {
+    margin-bottom: 0;
+}
+
+/* ---- 侧栏底部的联系块：整个侧栏里最醒目的部分 ---- */
+/* The contact block at the bottom of the sidebar: the boldest thing in it */
+.faq-contact {
+    /* 和上面的问题列表拉开距离  */
+    /* Some space above the block */
+    margin-top: 24px;
+    /* 浅蓝底，把整块托起来  */
+    /* A tinted surface that lifts the whole block off the page */
+    background-color: var(--color-tint);
+    /* 左侧一条粗蓝线，一眼就能看到这里有重点内容  */
+    /* A thick blue rule on the left, so the eye finds this block first */
+    border-left: 5px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    /* 内边距  */
+    /* Padding inside the block */
+    padding: 18px 20px 20px;
+}
+
+/* 标题加粗，字号放大  */
+/* The heading: bold and larger */
+.faq-contact-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+/* 说明文字  */
+/* The explanatory line */
+.faq-contact-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    margin-bottom: 14px;
+}
+
+/* 邮箱上方的说明标签：这是谁的邮箱  */
+/* The label above the address: whose mailbox this is */
+.faq-contact-label {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--color-primary-dk);
+    margin-bottom: 8px;
+}
+
+/* 邮箱链接：做成一个醒目的按钮  */
+/* The email link: turned into a prominent button */
+.faq-contact-mail {
+    margin: 0;
+    /* 换行时不拆断  */
+    /* The address does not break across lines */
+    word-break: break-all;
+}
+
+.faq-contact-mail a {
+    /* 邮箱用等宽字体，一眼能看出是地址  */
+    /* The address uses a monospace font so it reads as an address */
+    font-family: Consolas, "Courier New", monospace;
+    /* 字号放大到 18px  */
+    /* The size goes up to 18px */
+    font-size: 18px;
+    font-weight: bold;
+    /* 蓝底白字，一眼就看到  */
+    /* White on blue, so it catches the eye at once */
+    background-color: var(--color-primary);
+    color: #ffffff;
+    /* 圆角做成按钮的样子  */
+    /* Rounded corners so it reads as a button */
+    border-radius: var(--radius-sm);
+    /* 内边距让按钮有分量  */
+    /* Padding gives the button some weight */
+    padding: 12px 16px;
+    /* 整块可以点  */
+    /* The whole pad is clickable */
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+/* 悬停时变深一点  */
+/* It darkens slightly on hover */
+.faq-contact-mail a:hover {
+    background-color: var(--color-primary-dk);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+/* 主栏  |  The main column */
+
+/* 主栏与侧栏之间的间距  |  Space between the main column and the sidebar */
+.layout-main-col > p:first-child {
+    margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   第 7.5 部分：关于本站区块的新组件
+   PART 7.5: THE NEW COMPONENTS IN THE ABOUT SECTION
+
+   主栏里除了文字和流程列表，还放了三块内容来填满空间：
+   四个数字卡片、四条交换守则、一个行动按钮区。
+   Beside the text and the step list, the main column now carries three
+   extra blocks so the card is filled from top to bottom:
+   four number cards, four guidelines, and a call to action.
+   ========================================================================== */
+
+/* ---- 站点数据：四个数字卡片 ---- */
+/* Site at a glance: four number cards */
+.stat-row {
+    /* 用 Flex 排成一行，空间不够自动换行  */
+    /* Laid out in a row with Flexbox; they wrap when there is not enough room */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 6px;
+}
+
+.stat-item {
+    /* 每个数字卡片占一半宽度，中间留一条缝  */
+    /* Each number card takes half the width, with a gap in between */
+    flex: 1 1 calc(50% - 7px);
+    /* 浅蓝底，和整站色调一致  */
+    /* A pale blue surface, in keeping with the colours of the site */
+    background-color: var(--color-tint);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    /* 文字左对齐，比居中更好读  */
+    /* Left aligned - easier to read than centred */
+    text-align: left;
+}
+
+/* 数字本身：大号、加粗、深蓝色  */
+.stat-num {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: var(--color-primary);
+}
+
+/* 数字下面的小字说明  */
+/* 卡片标题：加粗的深蓝色，作为这一组的标题  */
+/* The card title: bold deep blue, it heads the card */
+.stat-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-primary-dk);
+}
+
+/* 标题下面的一句话说明  */
+/* The one-line explanation under the title */
+.stat-desc {
+    display: block;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+}
+
+/* ---- 交换守则：四张规则卡 ---- */
+/* Exchange guidelines: four rule cards */
+.rule-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 6px;
+}
+
+.rule-item {
+    /* 两列排布  */
+    /* Two columns */
+    flex: 1 1 calc(50% - 7px);
+    /* 白底加边框，和其他卡片一致  */
+    /* A white surface with a border, like the other cards */
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    /* 相对定位，给上面的序号定位用  */
+    /* Positioned relatively so the number above can be placed on it */
+    position: relative;
+    padding-top: 34px;
+}
+
+/* 左上角的序号  */
+.rule-index {
+    position: absolute;
+    top: 12px;
+    left: 18px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--color-secondary);
+}
+
+.rule-title {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.rule-desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+}
+
+/* ---- 行动按钮区 ---- */
+/* The call-to-action strip */
+.cta-row {
+    /* 淡黄底，和全站的暖色调呼应  */
+    /* A pale yellow, echoing the warm accent colour of the site */
+    background-color: #fff8e8;
+    border: 1px solid #f7dcb0;
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    /* Flex 排布：文字在左，按钮在右  */
+    /* Flexbox: the text on the left, the buttons on the right */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.cta-text {
+    /* 文字占掉剩余空间，把按钮推到右边  */
+    /* The text takes the leftover space and pushes the buttons to the right */
+    flex: 1 1 260px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--color-text);
+}
+
+/* 按钮之间的距离  */
+.cta-row .btn-primary,
+.cta-row .btn-secondary {
+    flex: 0 0 auto;
+}
+
+/* 按钮里的英文也跟着一起排  */
+.cta-row .btn-primary .en-text,
+.cta-row .btn-secondary .en-text {
+    /* 按钮上的英文用白色  */
+    /* The English on a button is white */
+    color: inherit;
+    margin-left: 6px;
+    font-size: 0.88em;
+}
+
+/* 次按钮里的英文是蓝色  */
+.cta-row .btn-secondary .en-text {
+    color: var(--color-primary);
+}
+
+
+/* ==========================================================================
+   第 7 部分：双栏布局（重新整理版）
+   PART 7: THE TWO-COLUMN LAYOUT (REBALANCED)
+
+   两栏并排，右边是常见问题侧栏，左边是正文。
+   两边都是白底卡片，并且被拉到一样高，看上去永远平衡。
+   Two columns side by side: the FAQ sidebar on the right, the main text on
+   the left. Both are white cards, and both are pulled to the same height,
+   so the section always looks balanced.
+   ========================================================================== */
+
+/* 双栏容器  |  The two-column container */
+.layout-two-col {
+    /* 用 Flex 而不是浮动：两栏不会因为 HTML 里的先后顺序而错位  */
+    /* Flexbox instead of floats: the order of the columns in the HTML no longer */
+    /* matters, and the two can never overlap each other. */
+    display: flex;
+    /* 两栏之间的间距  */
+    /* The gap between the two columns */
+    gap: 28px;
+    /* align-items: flex-start —— 每张卡片的高度由自己的内容决定  */
+    /* align-items: flex-start —— each card takes the height its own content needs */
+    /* 主栏内容多、侧栏内容少，两张卡片自然一长一短，但都从顶部对齐， */
+    /* 看上去干净整齐，不会有大片空白吊在下面  */
+    /* The main column has more content and the sidebar less, so the two cards */
+    /* come out different heights, but both start at the top and it looks tidy */
+    /* with no big empty area hanging underneath. */
+    align-items: flex-start;
+}
+
+
+/* 侧边栏  |  The sidebar */
+.layout-side-col {
+    /* 宽度用百分比：侧栏始终占屏幕的约三分之一，主栏拿剩下的  */
+    /* A percentage width: the sidebar always takes about a third of the width */
+    /* and the main column takes the rest. 不再是写死的像素，所以任何屏幕宽度下 */
+    /* It is no longer a hard-coded pixel value, so at any screen width */
+    /* 主栏都不会被挤扁  */
+    /* the main column can never be squeezed flat. */
+    width: 34%;
+    flex: 0 0 34%;
+    /* 但是最少 300px、最多 400px，避免太宽或太窄  */
+    /* But at least 300px and at most 400px, so it is never too wide or too narrow */
+    min-width: 300px;
+    max-width: 400px;
+    /* 不要浮动，Flex 会自动安排  */
+    /* No float needed; Flex places it automatically */
+    /* 白底色，和主栏的白底一致  */
+    /* A white surface, the same as the main column */
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    /* 内边距放大，让文字不挤  */
+    /* Generous padding so the text does not feel cramped */
+    padding: 24px 26px;
+    margin-bottom: 20px;
+    /* 阴影，跟主栏的卡片一样  */
+    /* A shadow, just like the cards in the main column */
+    box-shadow: var(--shadow-card);
+    /* 侧栏高度由内容决定，不需要内部滚动  */
+    /* The sidebar takes the height its content needs - no inner scrolling */
+    overflow: visible;
+}
+
+.layout-side-col h3 {
+    /* 标题字号和主栏的 h3 一致  */
+    /* The heading matches the size of the h3 in the main column */
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* 侧栏里的列表去掉圆点  |  Remove the bullets in the sidebar list */
+.layout-side-col ul {
+    list-style-type: none;              /* list-style-type:none 去掉默认圆点  Removes the default bullets */
+}
+
+.layout-side-col li {
+    padding-left: 16px;
+    position: relative;
+    /* 微灰蓝保留，但字号提到 16px  */
+    /* The muted colour stays, but the size rises to 16px */
+    color: var(--color-text-muted);
+    font-size: 16px;
+    /* 两条问题之间的距离  */
+    /* The space between two questions */
+    margin-bottom: 18px;
+}
+
+/* 用一个小圆点作为自定义项目符  |  A small dot as a custom bullet */
+.layout-side-col li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+}
+
+/* 主栏  |  The main column */
+.layout-main-col {
+    /* flex:1 让主栏占掉除侧栏之外的所有空间  */
+    /* flex:1 makes the main column take all the space the sidebar does not use */
+    flex: 1 1 auto;
+    /* 内容不会溢出本栏  */
+    /* Nothing spills out of this column */
+    min-width: 0;
+    /* 主栏也做成一张卡片，和侧栏完全一样的白底+边框+阴影  */
+    /* The main column is a card too, with exactly the same white surface, */
+    /* border and shadow as the sidebar. */
+    /* 这样两栏并排，一眼看上去是同一套设计，而不是两块拼起来的东西  */
+    /* This way the two columns side by side clearly read as one design, */
+    /* and not as two unrelated pieces. */
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    margin-bottom: 20px;
+    /* 阴影，跟侧栏的卡片一样  */
+    /* The same shadow as the sidebar card */
+    box-shadow: var(--shadow-card);
+}
+
+/* 主栏与侧栏之间的间距  |  Space between the main column and the sidebar */
+.layout-main-col > p:first-child {
+    margin-bottom: 16px;
+}
+
+
+/* ==========================================================================
+   第 8 部刄：表格
+   PART 8: TABLES
+   ========================================================================== */
+.table-schedule,
+.table-price {
+    width: 100%;
+    /* border-collapse:collapse 把单元格边线合并成一条细线  Merges the cell borders into one thin line */
+    border-collapse: collapse;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+/* 表头单元格  |  Header cells */
+.table-schedule th,
+.table-price th {
+    background-color: var(--color-tint);
+    color: var(--color-primary);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--color-primary);
+    font-weight: bold;
+}
+
+/* 数据单元格  |  Data cells */
+.table-schedule td,
+.table-price td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* 挡驻纹（隔行变色）  |  Zebra striping on alternate rows */
+.table-schedule tbody tr:nth-child(even),
+.table-price tbody tr:nth-child(even) {
+    background-color: var(--color-bg);
+}
+
+/* 鼠标悬停在某行上高亮  |  Highlight the row under the mouse */
+.table-schedule tbody tr:hover,
+.table-price tbody tr:hover {
+    background-color: var(--color-tint);
+}
+
+
+/* ==========================================================================
+   第 9 部分：公告列表
+   PART 9: NOTICE LIST
+   ========================================================================== */
+.notice-list {
+    list-style-type: none;              /* 去掉圆点  Remove the bullets */
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    /* 公告区里的文字比正文还小，现在放大到 19px  */
+    /* The notice text used to be smaller than the body text; raise it to 19px */
+    font-size: 19px;
+}
+
+.notice-list li {
+    /* 内边距放大，文字有空气感  */
+    /* Generous padding so the text has room to breathe */
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--color-border);
+    /* 深灰色，比以前清晰  */
+    /* A darker grey, much clearer than before */
+    color: var(--color-text);
+    position: relative;
+    /* 左边的小红点，用 position:absolute 定位  */
+    /* A small dot on the left, positioned with position:absolute */
+    padding-left: 42px;
+    /* 行高放宽，英文不会拥挤  */
+    /* A looser line height so the English does not look cramped */
+    line-height: 1.8;
+}
+
+.notice-list li::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    /* 圆点对齐到第一行文字的中间  */
+    /* The dot lines up with the middle of the first line of text */
+    top: 28px;
+    /* 圆点大一些  */
+    /* A bigger dot */
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+}
+
+/* 最后一行不要下边线  |  No border under the last item */
+.notice-list li:last-child {
+    border-bottom: none;
+}
+
+
+/* ==========================================================================
+   第 10 部分：筛选按钮
+   PART 10: FILTER BUTTONS
+   ========================================================================== */
+.filter-bar {
+    margin-bottom: 4px;
+}
+
+.filter-btn {
+    display: inline-block;
+    margin: 0 8px 10px 0;
+    padding: 7px 16px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;                    /* 手型指针光标  Show a pointer cursor */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* 当前选中的按钮  |  The currently selected filter */
+.filter-btn.active {
+    background-color: var(--color-primary);
+    box-shadow: 0 2px 6px rgba(42, 127, 212, 0.30);
+    border-color: var(--color-primary);
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   第 11 部分：表单
+   PART 11: FORMS
+   ========================================================================== */
+.exchange-form {
+    max-width: 640px;
+}
+
+/* 表单中每一行  |  One row of the form */
+.form-row {
+    margin-bottom: 20px;
+}
+
+/* 标签  |  The label */
+.form-row label,
+.form-fieldset legend {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+/* 必填项的星号  |  The asterisk marking a required field */
+.required {
+    color: var(--color-secondary);
+}
+
+/* 输入框、下拉框、多行文本域的统一样式  |  One shared style for all the form controls */
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text);
+    transition: border-color 0.3s ease;
+}
+
+/* 输入框获得焦点时变边框颜色  |  Change the border when the field is focused */
+.form-row input[type="text"]:focus,
+.form-row input[type="email"]:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+/* 多行文本域不能用横向拉伸  |  Textarea must not be stretched sideways */
+.form-row textarea {
+    resize: vertical;                   /* 只允许上下拉伸  Only allow vertical resizing */
+    line-height: 1.6;
+}
+
+/* 输入框的提示文字颜色  |  The placeholder text colour */
+.form-row input::placeholder,
+.form-row textarea::placeholder {
+    color: #b9b0a6;
+}
+
+/* 字段集  |  The fieldset that groups radio buttons and checkboxes */
+.form-fieldset {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+}
+
+/* 字段集的标题  |  The legend of a fieldset */
+.form-fieldset legend {
+    padding: 0 6px;
+    font-size: 15px;
+}
+
+/* 单选框和复选框的行内排列  |  Lay the radio and checkbox items out in a row */
+.radio-item,
+.check-item {
+    display: inline-block;               /* 放在同一行  Keep them on the same line */
+    margin-right: 20px;
+    margin-bottom: 6px;
+    font-weight: normal;                 /* 单选框不需要加粗  Normal weight for the items */
+    cursor: pointer;
+    color: var(--color-text);
+}
+
+/* ---- 书籍分类联动的书单  ---- */
+/* The book list that follows the category drop-down */
+
+/* 被筛选掉的书籍要完全藏起来  */
+/* A book that does not match the chosen category is hidden completely */
+.check-item.is-hidden {
+    /* display:none 是彻底移除，不占位置也不参与点击  */
+    /* display:none removes it entirely: no space is taken and it cannot be clicked */
+    display: none;
+}
+
+/* 没有选择分类时显示的提示  */
+/* The hint shown when no category has been picked */
+.check-hint {
+    /* 默认不显示  */
+    /* Hidden by default */
+    display: none;
+    /* 灰色小字  */
+    /* Small muted text */
+    color: var(--color-text-muted);
+    /* 字号略小  */
+    /* A slightly smaller size */
+    font-size: 14px;
+    /* 和上面的复选框拉开距离  */
+    /* Some space above the hint */
+    margin: 10px 0 2px;
+    /* 行高  */
+    /* Line height */
+    line-height: 1.7;
+}
+
+/* 需要显示提示时才把它显示出来  */
+/* The hint only appears when it is needed */
+.check-hint.is-visible {
+    display: block;
+}
+
+/* 表单底部的按钮行  |  The row of buttons at the bottom */
+.form-actions {
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+}
+
+.form-actions input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* 错误提示（由 JS 插入文字）  |  Error message inserted by JavaScript */
+.error-msg {
+    display: none;                       /* 默认隐藏，有错误时 JS 会改成 block  Hidden by default; JS switches it to block */
+    margin-top: 6px;
+    color: #d94f3d;
+    font-size: 13px;
+}
+
+/* 提交成功后插入的提示框（由 JS 创建）  |  The confirmation panel created by JavaScript */
+.success-msg {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background-color: #eafaf0;
+    border: 1px solid #9ed9b4;
+    border-radius: var(--radius-sm);
+    color: #1f7a45;
+}
+
+/* 常见问题列表  |  FAQ list */
+.faq-list {
+    list-style-type: none;
+}
+
+.faq-list > li {
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.faq-answer {
+    font-weight: normal;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin: 4px 0 14px;
+    padding-left: 14px;
+    border-left: 2px solid var(--color-border);
+}
+
+/* 联系方式侧边栏  |  The contact sidebar */
+.contact-aside {
+    max-width: 640px;
+    margin-top: 32px;
+    padding: 18px 20px;
+    background-color: var(--color-tint);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.contact-aside h3 {
+    margin-bottom: 10px;
+}
+
+.contact-aside ul {
+    list-style-type: none;
+}
+
+.contact-aside li {
+    color: var(--color-text-muted);
+    font-size: 14px;
+}
+
+
+/* ==========================================================================
+   第 12 部分：页脚 + 响应式（媒体查询）
+   PART 12: FOOTER AND RESPONSIVE RULES
+   ========================================================================== */
+.site-footer {
+    margin-top: 40px;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    /* 页脚的背景图片  |  A background image in the footer */
+    background-image: url("../images/footer.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.footer-inner {
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+.footer-inner p {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.footer-links a {
+    margin: 0 4px;
+}
+
+.footer-copyright {
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+}
+
+
+/* --------------------------------------------------------------------------
+   响应式布局：媒体查询 @media
+   RESPONSIVE LAYOUT: Media Queries
+
+   当屏幕宽度小于某个断点时，就用不同的样式。
+   When the screen becomes narrower than a breakpoint, different rules apply.
+   写 @media 时记得写 "max-width" （宽度小于等于这个值时生效）。
+   -------------------------------------------------------------------------- */
+
+/* ---- 平板端和小手机：小于 900px  ---- */
+@media screen and (max-width: 900px) {
+    /* 平板端：侧栏变窄到 300px  */
+    /* On a tablet the sidebar narrows to 300px */
+    .layout-side-col {
+        width: 300px;
+        /* 不浮动，Flex 会自动安排  */
+        /* No float needed; Flex places it automatically */
+        flex: 0 0 300px;
+        margin-left: 0;
+        /* 内边距同步缩小  */
+        /* The padding shrinks to match */
+        padding: 20px 22px;
+    }
+
+    /* 主栏的卡片同步缩小内边距  */
+    /* The main column card shrinks its padding to match */
+    .layout-main-col {
+        padding: 20px 22px;
+    }
+
+    /* 数字卡片和规则卡在平板上改成一行一个  */
+    /* The number cards and the rule cards become one per row on a tablet */
+    .stat-item,
+    .rule-item {
+        flex: 1 1 100%;
+    }
+
+    /* 导航链接改为纵向排列  */
+    /* The navigation links stack vertically instead of sitting in a row */
+    .header-nav-link {
+        float: none;
+        display: block;
+        border-bottom: 1px solid var(--color-border);
+        border-left: 3px solid transparent;
+    }
+
+    /* 当前页面的高亮改在左侧  */
+    /* The active highlight moves to the left edge */
+    .header-nav-link.active {
+        border-left-color: var(--color-primary);
+        border-bottom-color: var(--color-border);
+    }
+
+    /* 书卡变为两列  */
+    /* The book cards go down to two columns */
+    .gallery-book-card {
+        flex: 1 1 180px;
+        max-width: none;
+    }
+
+    /* 书籍网格变为两列  */
+    /* The Grid catalogue goes down to two columns */
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ---- 手机：小于 640px  ---- */
+@media screen and (max-width: 640px) {
+    body {
+        font-size: 16px;                 /* 小屏上字号略小  Slightly smaller text on a phone */
+    }
+
+    .main-content,
+    .header-nav-inner,
+    .footer-inner {
+        padding: 0 16px;                /* 页面两侧边距缩小  Smaller side padding */
+    }
+
+    h1 { font-size: 22px; }
+    h2 { font-size: 19px; }
+
+    /* 欢迎区的文字占满整个宽度  */
+    .section-banner h2,
+    .section-banner p {
+    /* 文字块用实心白色底板，与背景形成强对比  */
+    /* A solid white panel. The background picture keeps its vivid colours */
+    /* and the text keeps full contrast - the two never fight each other. */
+    background-color: #ffffff;
+    /* 左侧蓝线加强定位感  */
+    /* The blue rule on the left anchors the panel */
+    border-left: 5px solid var(--color-primary);
+    /* 右上圆角，左下角直角跟着蓝线  */
+    /* Rounded on the right, square on the left where the blue rule runs */
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 18px;
+    /* 宽度受限，不拉到整个区块  */
+    /* A limited width so the panel does not stretch across the whole section */
+    max-width: 520px;
+    margin-bottom: 14px;
+    /* 阴影让白底板从背景图上脱离出来  */
+    /* A shadow lifts the white panel off the busy background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+    /* 书卡变为一列排列  */
+    /* The book cards stack into a single column */
+    .gallery-book-card {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+
+    /* 书籍网格变为一列  */
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 表格在小屏上可以横向滚动  */
+    /* The table can scroll sideways on a narrow screen */
+    .table-schedule,
+    .table-price {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* 表单控件占满宽度  */
+    .exchange-form {
+        max-width: 100%;
+    }
+
+    /* 单选框和复选框各自占一行  */
+    .radio-item,
+    .check-item {
+        display: block;
+        margin-right: 0;
+    }
+
+    /* 手机上两栏上下堆叠  */
+    /* On a phone the two columns stack vertically */
+/* 双栏布局  |  THE TWO-COLUMN LAYOUT */
+
+    /* 侧栏占满整行宽度  */
+    /* The sidebar takes the full width of the row */
+
+    /* 手机上主栏也占满整行  */
+    /* The main column takes the full width too */
+
+    /* 手机上行动按钮改成上下排列  */
+    /* On a phone the call-to-action buttons stack vertically */
+    .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    /* 按钮占满整行  */
+    /* The buttons take the full width */
+    .cta-row .btn-primary,
+    .cta-row .btn-secondary {
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   第 13 部分：中英双语文字的样式
+   PART 13: BILINGUAL TEXT STYLING
+
+   页面上每一句文字都是"中文 + 英文"的结构。
+   英文部分用 <span class="en-text"> 包裹。
+   Every line of text on the site follows the pattern "Chinese + English".
+   The English half is wrapped in <span class="en-text">.
+
+   关键规则：英文和中文用同一种颜色（color: inherit），
+   只用"间距 + 字体 + 字号"三个方式区分中英文。
+   The key rule: the English inherits the same colour as the Chinese
+   (color: inherit). Only three things separate the two languages - a clear
+   gap, a different typeface and a slightly smaller size.
+   ========================================================================== */
+
+/* 英文文字的样式  |  The English half of a bilingual line */
+.en-text {
+    /* 颜色直接继承中文，不做任何修改  */
+    /* The colour is inherited from the Chinese text - nothing is overridden */
+    color: inherit;
+    /* 使用一个清晰的无衬线字体，与中文字体不同  */
+    /* A clean sans-serif, different from the Chinese typeface */
+    font-family: "Segoe UI", Arial, "Helvetica Neue", sans-serif;
+    /* 字号略小一点，但不太小  */
+    /* Slightly smaller, but not so small that it becomes hard to read */
+    font-size: 0.94em;
+    /* 字符体重略轻，让英文不与中文争夺注视重量  */
+    /* A touch lighter, so the English does not compete with the Chinese */
+    font-weight: 500;
+    /* 中文和英文之间的间距，这是区分两者的主要手段  */
+    /* The gap between the Chinese and the English - this is the main way the two */
+    /* languages are told apart, so it is deliberately generous */
+    margin-left: 10px;
+    /* 字母间距略宽，让英文不拥挤  */
+    /* A little letter spacing keeps the English from feeling cramped */
+    letter-spacing: 0.2px;
+}
+
+/* 英文前面加一个薄白色的分隔线，让中英文不会“拼在一起”  */
+/* A thin pale separator before the English, so the two languages never look glued together */
+.en-text::before {
+    content: "\2022";
+    /* 分隔符号变得浅一点，不抢文字的视觉重量  */
+    /* The separator is made pale so it does not steal attention from the words */
+    color: var(--color-border);
+    /* 与中文之间的距离  */
+    /* Space before the separator */
+    margin-right: 10px;
+    /* 分隔符号不受行高影响  */
+    /* The separator is not affected by the line height */
+    line-height: 1;
+}
+
+/* 标题里的英文保持中文的加粗程度  */
+/* In a heading the English keeps the same bold weight as the Chinese */
+h1 .en-text,
+h2 .en-text,
+h3 .en-text {
+    font-weight: inherit;
+}
+
+/* 页脚里的分隔符号更浅  */
+/* The separator in the footer is even fainter */
+.footer-copyright .en-text::before {
+    color: var(--color-border);
+}
+
+/* 价格行里的英文变小一点，不和数字争夺注视线  */
+/* The English in a price line is a little smaller, so it does not compete with the number */
+.gallery-book-price .en-text,
+.book-grid-price .en-text {
+    font-size: 0.86em;
+}
+
+/* ==========================================================================
+   第 14 部分：JavaScript 引用的状态样式
+   PART 14: STATE STYLES USED BY JAVASCRIPT
+
+   下面这几个类是由 JavaScript 加上或移除的，用来控制页面上的状态。
+   The classes below are added and removed by JavaScript to control the state
+   of the page.
+   ========================================================================== */
+
+/* ---- 分类筛选：隐藏不选中的书籍分组  ---- */
+/* Category filter: hide the book groups that are not selected */
+.section-book-group.is-hidden {
+    display: none;
+}
+
+/* ---- 教材价格参考表格跟着筛选：隐藏不匹配的行  ---- */
+/* The price table follows the filter: hide the rows that do not match */
+.table-price tbody tr.is-hidden {
+    display: none;
+}
+
+/* ---- 表单错误提示：显示出来  ---- */
+/* Form errors: make the message visible */
+.error-msg.is-visible {
+    display: block;
+    /* 错误提示前面加一个红色圆点，更明确  */
+    /* A red dot in front of the message makes it easier to spot */
+    padding-left: 16px;
+    position: relative;
+}
+
+/* 错误提示前面的红圆点  */
+.error-msg.is-visible::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #d94f3d;
+    font-weight: bold;
+}
+
+/* ---- 站内公告轮播：只显示当前这一条  ---- */
+/* Notice rotation: only the active notice is shown */
+.notice-list li {
+    display: none;
+}
+
+.notice-list li.is-active {
+    display: block;
+    /* 当前这条的左侧圆点用主色，其余的使用次色  */
+    /* The dot of the active notice uses the primary colour */
+    border-left: 4px solid var(--color-primary);
+    padding-left: 38px;
+}
+
+.notice-list li.is-active::before {
+    background-color: var(--color-primary);
+}
+
+/* 轮播时倒数字，让用户知道还有多少条  */
+.notice-list {
+    /* 保留一个空白的高度，避免切换时页面下移  */
+    /* A fixed minimum height stops the page from jumping while the notices rotate */
+    min-height: 78px;
+}
+
+/* ---- 成功提示框的强调  ---- */
+/* A stronger look for the confirmation panel */
+.success-msg {
+    /* 左侧加粗绿色线  */
+    /* A thicker green rule on the left */
+    border-left: 4px solid #3f9e5f;
+    /* 字号略大  */
+    /* Slightly larger text */
+    font-size: 15px;
+}
+
+/* 成功提示里的英文受控制  */
+.success-msg .en-text {
+    font-size: 0.92em;
+}
+
+/* ==========================================================================
+   第 15 部分：站内公告轮播的提示件
+   PART 15: THE NOTICE ROTATION INDICATOR
+
+   用户看不出公告会自动换，所以需要一个提示件告诉他们。
+   Because the notices change on their own, an indicator tells the user that
+   something is happening here.
+   ========================================================================== */
+
+/* 公告区的容器位置相对，方便放指示器  */
+/* The notice block is positioned so the indicator can be placed inside it */
+.section-notice {
+    position: relative;
+}
+
+/* 轮播提示器：圆点与自动播放标签  */
+/* The rotation indicator: a row of dots and an "auto" label */
+.notice-rotation-info {
+    /* 紧跟在公告下方  */
+    /* Sits just below the notices */
+    margin-top: 16px;
+    /* 圆点和文字在同一行  */
+    /* The dots and the label sit on one line */
+    display: flex;
+    /* 对齐  */
+    /* Align them in the middle */
+    align-items: center;
+    /* 一个小的间距  */
+    /* A small gap between the dots and the label */
+    gap: 10px;
+}
+
+/* 圆点指示器  |  The dot indicator */
+.notice-dots {
+    /* 圆点横向排列  */
+    /* The dots sit in a row */
+    display: flex;
+    /* 圆点之间的间距  */
+    /* The space between two dots */
+    gap: 8px;
+}
+
+.notice-dot {
+    /* 小圆点  */
+    /* A small round dot */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    /* 默认是浅蓝色，表示未选中  */
+    /* Pale blue by default, meaning "not the current one" */
+    background-color: var(--color-border);
+    /* 去掉按钮的默认边框  */
+    /* Remove the default button border */
+    border: none;
+    /* 去掉按钮的默认内边距  */
+    /* Remove the default button padding */
+    padding: 0;
+    /* 手型指针，表示可以点  */
+    /* A pointer cursor, showing it can be clicked */
+    cursor: pointer;
+    /* 优雅的小回退动效  */
+    /* A smooth little transition when it changes */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* 当前的那个圆点  */
+/* The dot for the notice that is showing right now */
+.notice-dot.active {
+    /* 变成主色蓝色  */
+    /* It turns the primary blue */
+    background-color: var(--color-primary);
+    /* 略大一点，更张扎  */
+    /* A little bigger, so it stands out */
+    transform: scale(1.35);
+}
+
+/* 鼠标悬停在圆点上时变暗  */
+/* The dot darkens slightly when the mouse is over it */
+.notice-dot:hover {
+    background-color: var(--color-primary);
+}
+
+/* “自动播放”的小标签  */
+/* The small "auto playing" label */
+.notice-auto-label {
+    /* 字号  */
+    /* The text size */
+    font-size: 15px;
+    /* 浅灰蓝色  */
+    /* A muted blue-grey */
+    color: var(--color-text-muted);
+    /* 字体略粗  */
+    /* Slightly bold so it reads as a label */
+    font-weight: 600;
+}
+
+/* 标签里的英文  */
+/* The English inside the label */
+.notice-auto-label .en-text {
+    /* 不加入分隔符号，因为自己已经是一个完整词组  */
+    /* No separator dot, because the label is already a complete phrase */
+    font-size: 1em;
+}
+
+/* 小屏上提示器换行  */
+/* On a small screen the indicator wraps onto its own line */
+@media screen and (max-width: 640px) {
+    .notice-rotation-info {
+        flex-wrap: wrap;
+    }
+}

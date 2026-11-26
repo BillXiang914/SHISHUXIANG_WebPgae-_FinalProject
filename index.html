@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  拾书巷 (Shishuxiang) - 校园二手书交换站
+  Campus Second-hand Book Exchange Site  |  首页 Home Page (index.html)
+  ----------------------------------------------------------------------------
+  负责人 Owner: 向梓辰 Xiang Zichen (202412320227)
+  合作者 Collaborator: 李佳豪 Li Jiahao (202412320211)
+  ----------------------------------------------------------------------------
+  本页面所有可见文字均为中英双语：中文加粗、英文紧跟其后。
+  Every visible piece of text on this page is bilingual: the Chinese is set in
+  bold and the English follows immediately after it on the same line.
+  ============================================================================
+-->
+
+<html lang="zh-CN">
+
+<head>
+    <!-- 字符编码  |  Character Encoding -->
+    <meta charset="UTF-8">
+    <!-- 视口设置（移动端必写）  |  Viewport Meta Tag (required for mobile) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 页面标题  |  Page Title -->
+    <title>拾书巷 Shishuxiang | 校园二手书交换站 Campus Book Exchange</title>
+    <!-- 网站图标  |  Favicon -->
+    <link rel="shortcut icon" href="images/logo.jpg?v=3" type="image/x-icon">
+    <!-- 外部样式表  |  External Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+
+<body>
+    <!-- ==================================================================
+         区块一：顶部导航栏
+         BLOCK 1: HEADER / NAVIGATION BAR
+         ================================================================== -->
+    <header id="header-top">
+        <!-- 站点名称  |  Site Name -->
+        <h1 class="header-site-title">拾书巷 <span class="en-text">Shishuxiang</span></h1>
+
+        <nav class="header-nav">
+            <div class="header-nav-inner">
+                <a href="index.html" class="header-nav-link active">首页 <span class="en-text">Home</span></a>
+                <a href="detail.html" class="header-nav-link">书单 <span class="en-text">Catalogue</span></a>
+                <a href="contact.html" class="header-nav-link">留言板 <span class="en-text">Message Board</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+
+        <!-- --------------------------------------------------------------
+             功能块 2-1：欢迎区
+             FEATURE BLOCK 2-1: HERO / BANNER SECTION
+             -------------------------------------------------------------- -->
+        <section class="section-banner">
+            <!-- 大标题  |  Main Heading -->
+            <h2>让书在校园里继续流动 <span class="en-text">Let Books Keep Flowing on Campus</span></h2>
+
+            <!-- 介绍段落（黑体加粗）  |  Introductory Paragraph (bold Heiti) -->
+            <p>
+                拾书巷是一个面向本校学生的二手书交换信息站。
+                <span class="en-text">Shishuxiang is a second-hand book exchange platform built by and for students on this campus.</span><br>
+                这里有大家用过的教材、课外读物和各类工具书，一本书看完不再是闲置，交到下一个需要的人手里。
+                <span class="en-text">Browse textbooks, course readers and reference books that other students have finished with, and pass them on to whoever needs them next.</span>
+            </p>
+
+            <!-- 行动请求按钮  |  Call to Action Button -->
+            <a href="contact.html" class="btn-primary">我要登记交换 <span class="en-text">Register an Exchange</span></a>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块 2-2：精选图书画廊
+             FEATURE BLOCK 2-2: FEATURED BOOK GALLERY
+             -------------------------------------------------------------- -->
+        <section id="section-gallery" class="section-gallery">
+            <h2>本周精选 <span class="en-text">This Week's Picks</span></h2>
+
+            <div class="gallery-container">
+
+                <article class="gallery-book-card">
+                    <img src="images/活着.jpg?v=3" alt="《活着》封面 Cover of To Live">
+                    <h3>活着 <span class="en-text">To Live</span></h3>
+                    <p class="gallery-book-author">余华 <span class="en-text">Yu Hua</span></p>
+                    <p class="gallery-book-price"><strong>￥18</strong> <span class="en-text">CNY 18</span></p>
+                </article>
+
+                <article class="gallery-book-card">
+                    <img src="images/小王子.jpg?v=3" alt="《小王子》封面 Cover of The Little Prince">
+                    <h3>小王子 <span class="en-text">The Little Prince</span></h3>
+                    <p class="gallery-book-author">圣埃克苏佩里 <span class="en-text">Saint-Exupéry</span></p>
+                    <p class="gallery-book-price"><strong>￥12</strong> <span class="en-text">CNY 12</span></p>
+                </article>
+
+                <article class="gallery-book-card">
+                    <img src="images/人类简史.jpg?v=3" alt="《人类简史》封面 Cover of Sapiens">
+                    <h3>人类简史 <span class="en-text">Sapiens</span></h3>
+                    <p class="gallery-book-author">尤瓦尔·赫拉利 <span class="en-text">Yuval Noah Harari</span></p>
+                    <p class="gallery-book-price"><strong>￥25</strong> <span class="en-text">CNY 25</span></p>
+                </article>
+
+                <article class="gallery-book-card">
+                    <img src="images/平凡的世界.jpg?v=3" alt="《平凡的世界》封面 Cover of The Ordinary World">
+                    <h3>平凡的世界 <span class="en-text">The Ordinary World</span></h3>
+                    <p class="gallery-book-author">路遥 <span class="en-text">Lu Yao</span></p>
+                    <p class="gallery-book-price"><strong>￥20</strong> <span class="en-text">CNY 20</span></p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块 2-3：关于本站 + 侧边栏（双栏）
+             FEATURE BLOCK 2-3: ABOUT SECTION + SIDEBAR (TWO-COLUMN LAYOUT)
+             -------------------------------------------------------------- -->
+        <section id="section-about" class="section-about">
+            <h2>关于本站 <span class="en-text">About This Site</span></h2>
+
+            <div class="layout-two-col">
+
+                <article class="layout-main-col">
+                    <p>
+                        本站由在校学生自发维护，所有图书信息均由同学自主登记，不收取任何中间费用。
+                        <span class="en-text">This site is maintained by students. Every book listed here is registered by a fellow student, and no fee is charged at any point.</span><br>
+                        书籍流转只发生在校园内，以当面交接为主，登记时会在留言中写清楚时间和地点。
+                        <span class="en-text">Books only change hands inside the campus, and handover is done face to face. When you register, please state the time and the meeting point clearly in your message.</span>
+                    </p>
+
+                    <h3>交换流程 <span class="en-text">How an Exchange Works</span></h3>
+
+                    <ol class="list-procedure">
+                        <li>在留言板登记你要出手或想换的书
+                            <span class="en-text">Register the book you want to sell or swap on the Message Board page.</span></li>
+                        <li>等待站内同学联系，约定交换时间
+                            <span class="en-text">Wait for another student to contact you and agree on a handover time.</span></li>
+                        <li>在指定地点当面交接，当场确认书本状态
+                            <span class="en-text">Meet at the agreed place and check the condition of the book together.</span></li>
+                        <li>教材可以折价转让，其他书籍建议原价交换
+                            <span class="en-text">Textbooks may be transferred at a discount; other books are best exchanged at full price.</span></li>
+                    </ol>
+
+                    <!--
+                      服务承诺：四条不涉及任何统计数字的说明
+                      What We Offer: four plain statements, no numbers or statistics
+                    -->
+                    <h3>我们提供什么 <span class="en-text">What We Offer</span></h3>
+
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <span class="stat-label">免费登记 <span class="en-text">Free to List</span></span>
+                            <span class="stat-desc">填一次表单就好，不收任何费用，也不收押金。
+                                <span class="en-text">Fill in one form. There is no fee and no deposit of any kind.</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">站内交换 <span class="en-text">On-Campus Only</span></span>
+                            <span class="stat-desc">只在校园内流转，交接地点由双方在留言里商量。
+                                <span class="en-text">Books change hands on campus only. You agree the meeting point in your message.</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">当面交接 <span class="en-text">Face to Face</span></span>
+                            <span class="stat-desc">建议在图书馆或学生中心交接，双方当场确认书本状态。
+                                <span class="en-text">Meet at the Library or the Student Centre and check the book together.</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">自主定价 <span class="en-text">Set Your Own Price</span></span>
+                            <span class="stat-desc">登记时写个参考价，具体价格你和对方自行商量。
+                                <span class="en-text">Give a reference price when you list, then agree the final price yourself.</span></span>
+                        </div>
+                    </div>
+
+                    <!--
+                      交换守则：四条约定
+                      Exchange guidelines: four simple rules
+                    -->
+                    <h3>交换守则 <span class="en-text">Exchange Guidelines</span></h3>
+
+                    <div class="rule-grid">
+                        <div class="rule-item">
+                            <span class="rule-index">01</span>
+                            <p class="rule-title">书页完整 <span class="en-text">Complete Pages</span></p>
+                            <p class="rule-desc">缺页、严重折角的书请在留言里注明，免得后面有误会。
+                                <span class="en-text">If a book is missing pages or badly creased, say so in your message to avoid confusion later.</span></p>
+                        </div>
+                        <div class="rule-item">
+                            <span class="rule-index">02</span>
+                            <p class="rule-title">不代替教材 <span class="en-text">No Textbooks on Your Behalf</span></p>
+                            <p class="rule-desc">教材直接找同学换，我们不代收，也不代寄。
+                                <span class="en-text">Swap textbooks with a student directly. We do not collect or post books for you.</span></p>
+                        </div>
+                        <div class="rule-item">
+                            <span class="rule-index">03</span>
+                            <p class="rule-title">不强行定价 <span class="en-text">No Fixed Price</span></p>
+                            <p class="rule-desc">价格由买卖双方商量，登记时写个参考价就够了。
+                                <span class="en-text">You and the other student agree on the price. A reference price in the listing is enough.</span></p>
+                        </div>
+                        <div class="rule-item">
+                            <span class="rule-index">04</span>
+                            <p class="rule-title">按时出现 <span class="en-text">Show Up on Time</span></p>
+                            <p class="rule-desc">约定好后尽量准时，有变动提前在留言里说一声。
+                                <span class="en-text">Try to be on time. If something changes, post a note on the message board first.</span></p>
+                        </div>
+                    </div>
+
+                    <!--
+                      行动按钮：把读者引向留言板和书单
+                      Call to action: point the reader to the message board and the catalogue
+                    -->
+                    <div class="cta-row">
+                        <p class="cta-text">手上有读完的书？登记一下，让它去到需要的人手里。
+                            <span class="en-text">Finished a book? List it and let it reach the student who needs it.</span></p>
+                        <a class="btn-primary" href="contact.html">去登记 <span class="en-text">Register</span></a>
+                        <a class="btn-secondary" href="detail.html">看看书单 <span class="en-text">Browse the Catalogue</span></a>
+                    </div>
+                </article>
+
+                <aside class="layout-side-col">
+                    <h3>常见问题 <span class="en-text">FAQ</span></h3>
+
+                    <ul class="list-faq">
+                        <li>
+                            <p class="faq-q">教材什么时候最好换？
+                                <span class="en-text">When is the best time to swap textbooks?</span></p>
+                            <p class="faq-a">开学前两周和期末考完最忙，建议提前一周登记。
+                                <span class="en-text">The busiest times are before term starts and after the final exams. Register a week ahead.</span></p>
+                        </li>
+                        <li>
+                            <p class="faq-q">可以只换不卖吗？
+                                <span class="en-text">Can I only exchange books without selling?</span></p>
+                            <p class="faq-a">可以，交换方式选「置换」即可，全程免费。
+                                <span class="en-text">Yes. Pick "Swap" as the exchange type. It is free.</span></p>
+                        </li>
+                        <li>
+                            <p class="faq-q">毕业了还能登记吗？
+                                <span class="en-text">Can I still register after graduation?</span></p>
+                            <p class="faq-a">可以登记，约在图书馆或学生中心交接。
+                                <span class="en-text">Yes, you are welcome to register. Meet at the Library or the Student Centre.</span></p>
+                        </li>
+                        <li>
+                            <p class="faq-q">如何保证书本品相？
+                                <span class="en-text">How is the condition of a book guaranteed?</span></p>
+                            <p class="faq-a">登记时写清书页、封面和批注，交接时当面确认。
+                                <span class="en-text">Describe the pages, cover and annotations when you register, then check the book together.</span></p>
+                        </li>
+                    </ul>
+
+                    <!--
+                      侧边栏底部的联系方式
+                      The contact details at the bottom of the sidebar
+                    -->
+                    <div class="faq-contact">
+                        <p class="faq-contact-title">还有不懂的地方？
+                            <span class="en-text">Still have questions?</span></p>
+                        <p class="faq-contact-body">
+                            欢迎随时给我们写邮件，负责人会亲自回复。
+                            <span class="en-text">Feel free to email us. The site owner replies to every message personally.</span>
+                        </p>
+                        <p class="faq-contact-label">
+                            本站负责人邮箱
+                            <span class="en-text">Site Owner Email</span>
+                        </p>
+                        <p class="faq-contact-mail">
+                            <a href="mailto:shishuxiang@example.edu">shishuxiang@example.edu</a>
+                        </p>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块 2-4：本周交换安排（表格）
+             FEATURE BLOCK 2-4: WEEKLY EXCHANGE SCHEDULE (TABLE)
+             -------------------------------------------------------------- -->
+        <section id="section-schedule" class="section-schedule">
+            <h2>本周交换安排 <span class="en-text">This Week's Schedule</span></h2>
+
+            <table class="table-schedule">
+                <thead>
+                    <tr>
+                        <th scope="col">日期 <span class="en-text">Date</span></th>
+                        <th scope="col">时间 <span class="en-text">Time</span></th>
+                        <th scope="col">地点 <span class="en-text">Location</span></th>
+                        <th scope="col">图书数量 <span class="en-text">No. of Books</span></th>
+                        <th scope="col">负责人 <span class="en-text">Coordinator</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>周二 <span class="en-text">Tuesday</span></td>
+                        <td>12:00 - 13:30</td>
+                        <td>图书馆二楼 <span class="en-text">Library, 2nd Floor</span></td>
+                        <td>15</td>
+                        <td>向梓辰 <span class="en-text">Xiang Zichen</span></td>
+                    </tr>
+                    <tr>
+                        <td>周三 <span class="en-text">Wednesday</span></td>
+                        <td>18:30 - 20:00</td>
+                        <td>学生中心 204 <span class="en-text">Student Centre, Room 204</span></td>
+                        <td>22</td>
+                        <td>李佳豪 <span class="en-text">Li Jiahao</span></td>
+                    </tr>
+                    <tr>
+                        <td>周五 <span class="en-text">Friday</span></td>
+                        <td>19:00 - 21:00</td>
+                        <td>东食堂门口 <span class="en-text">East Canteen Entrance</span></td>
+                        <td>18</td>
+                        <td>向梓辰 <span class="en-text">Xiang Zichen</span></td>
+                    </tr>
+                    <tr>
+                        <td>周六 <span class="en-text">Saturday</span></td>
+                        <td>14:00 - 16:30</td>
+                        <td>图书馆一楼 <span class="en-text">Library, 1st Floor</span></td>
+                        <td>26</td>
+                        <td>李佳豪 <span class="en-text">Li Jiahao</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块 2-5：站内公告
+             FEATURE BLOCK 2-5: SITE NOTICES
+             -------------------------------------------------------------- -->
+        <section id="section-notice" class="section-notice">
+            <h2>站内公告 <span class="en-text">Site Notices</span></h2>
+
+            <ul class="notice-list">
+                <li>本周末图书馆一楼的交换点延长开放到 16:30
+                    <span class="en-text">The exchange point on the 1st floor of the Library stays open until 16:30 this weekend.</span></li>
+                <li>教材类图书转让价普遍在原价的 5 折左右
+                    <span class="en-text">Textbooks are generally transferred at around 50% of their original price.</span></li>
+                <li>登记时请务必留下可联系的联系方式
+                    <span class="en-text">Please always leave a reachable contact method when you register.</span></li>
+            </ul>
+
+            <!--
+              轮播提示器（由 JavaScript 填充圆点）
+              The rotation indicator. JavaScript fills the dots in here.
+              一开始是空的，等 JS 运行后才会出现圆点和"自动播放"标签。
+              It starts out empty; the dots and the label appear once the
+              JavaScript has run.
+            -->
+            <div class="notice-rotation-info" id="notice-rotation-info">
+                <div class="notice-dots" id="notice-dots"></div>
+                <span class="notice-auto-label">
+                    自动播放中 <span class="en-text">Auto-rotating</span>
+                </span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================================================================
+         区块三：页脚
+         BLOCK 3: FOOTER
+         ================================================================== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <p>
+                联系方式：<a href="mailto:shishuxiang@example.edu">shishuxiang@example.edu</a>
+                <span class="en-text">Contact</span>
+            </p>
+
+            <p class="footer-links">
+                <a href="#header-top">返回顶部 <span class="en-text">Back to Top</span></a>
+                |
+                <a href="index.html">首页 <span class="en-text">Home</span></a>
+                |
+                <a href="detail.html">书单 <span class="en-text">Catalogue</span></a>
+                |
+                <a href="contact.html">留言板 <span class="en-text">Message Board</span></a>
+            </p>
+
+            <p class="footer-copyright">
+                &copy; 2026 拾书巷 Shishuxiang · 校园二手书交换站 Campus Book Exchange · 组号 2 Group 2
+                <span id="footer-year"></span>
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- 交互脚本  |  The interaction script -->
+    <script src="js/main.js?v=3" defer></script>
+
+</body>
+
+</html>

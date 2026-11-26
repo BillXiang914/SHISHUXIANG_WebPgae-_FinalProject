@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  拾书巷 (Shishuxiang) - 校园二手书交换站
+  Campus Second-hand Book Exchange Site  |  留言板页 Message Board Page (contact.html)
+  ----------------------------------------------------------------------------
+  负责人 Owner: 李佳豪 Li Jiahao (202412320211)
+  合作者 Collaborator: 向梓辰 Xiang Zichen (202412320227)
+  ----------------------------------------------------------------------------
+  本页包含一个完整的表单，包括文本框、单选框、复选框、
+  下拉框和文本域，并会用 JavaScript 做必填项与邮箱格式验证。
+  This page holds a complete form with text inputs, radio buttons, checkboxes,
+  a select box and a text area, all validated by JavaScript.
+  ============================================================================
+-->
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板 Message Board | 拾书巷 Shishuxiang Campus Book Exchange</title>
+    <link rel="shortcut icon" href="images/logo.jpg?v=3" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+
+<body>
+    <!-- ==================================================================
+         区块一：顶部导航栏
+         BLOCK 1: HEADER / NAVIGATION BAR
+         ================================================================== -->
+    <header id="header-top">
+        <h1 class="header-site-title">拾书巷 <span class="en-text">Shishuxiang</span></h1>
+
+        <nav class="header-nav">
+            <div class="header-nav-inner">
+                <a href="index.html" class="header-nav-link">首页 <span class="en-text">Home</span></a>
+                <a href="detail.html" class="header-nav-link">书单 <span class="en-text">Catalogue</span></a>
+                <a href="contact.html" class="header-nav-link active">留言板 <span class="en-text">Message Board</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+
+        <!-- --------------------------------------------------------------
+             功能块：页面引言
+             FEATURE BLOCK: PAGE INTRO
+             -------------------------------------------------------------- -->
+        <section class="section-page-intro">
+            <h2>我想交换 <span class="en-text">I Would Like to Exchange a Book</span></h2>
+
+            <p>
+                把下面的表单填好就可以登记。带星号的是必填项，其余可以选填。
+                <span class="en-text">Fill in the form below to register. The fields marked with an asterisk are required; everything else is optional.</span>
+            </p>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：登记表单
+             FEATURE BLOCK: THE REGISTRATION FORM
+             -------------------------------------------------------------- -->
+        <section id="section-register" class="section-register">
+            <h2>登记表单 <span class="en-text">Registration Form</span></h2>
+
+            <!-- action 留空表示未提交到服务器，改由 JS 拦截处理  -->
+            <!-- An empty action means the form is not sent to a server; JavaScript intercepts it -->
+            <form class="exchange-form" id="exchange-form" action="#" method="post" novalidate>
+
+                <!-- 姓名（必填）  |  Name (required) -->
+                <div class="form-row">
+                    <label for="name">
+                        姓名 <span class="en-text">Name</span> <span class="required">*</span>
+                    </label>
+                    <input type="text" id="name" name="name" placeholder="请输入你的姓名 Please enter your name">
+                    <p class="error-msg" id="name-error">请填写姓名 Please enter your name</p>
+                </div>
+
+                <!-- 邮箱（必填）  |  Email (required) -->
+                <div class="form-row">
+                    <label for="email">
+                        邮箱 <span class="en-text">Email</span> <span class="required">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="请输入邮箱地址 Please enter your email address">
+                    <p class="error-msg" id="email-error">请填写有效的邮箱地址 Please enter a valid email address</p>
+                </div>
+
+                <!-- 单选框：交换方式  |  Radio buttons: type of exchange -->
+                <div class="form-row">
+                    <fieldset class="form-fieldset">
+                        <legend>
+                            交换方式 <span class="en-text">Exchange Type</span> <span class="required">*</span>
+                        </legend>
+
+                        <label class="radio-item">
+                            <input type="radio" name="type" value="sell" checked>
+                            出手 <span class="en-text">Sell</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="type" value="swap">
+                            置换 <span class="en-text">Swap</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="type" value="free">
+                            赠送 <span class="en-text">Give Away</span>
+                        </label>
+                    </fieldset>
+                </div>
+
+                <!-- 下拉框：书籍分类  |  Select box: book category -->
+                <div class="form-row">
+                    <label for="category">
+                        书籍分类 <span class="en-text">Category</span>
+                    </label>
+                    <select id="category" name="category">
+                        <option value="">请选择 Please choose</option>
+                        <option value="literature">文学类 Literature</option>
+                        <option value="social">社科类 Social Science</option>
+                        <option value="course">学科教材 Course Books</option>
+                        <option value="language">语言类 Language</option>
+                    </select>
+                </div>
+
+                <!-- 复选框：想交换的书  |  Checkboxes: books to exchange -->
+                <!--
+                  每个复选框都带一个 data-category 属性，标明它属于哪一类。
+                  下拉框一换，下面这里就会自动只显示该分类的书。
+                  Each checkbox carries a data-category attribute naming the group
+                  it belongs to. Changing the drop-down box above filters this
+                  list down to the books in that category.
+                -->
+                <div class="form-row">
+                    <fieldset class="form-fieldset">
+                        <legend>
+                            想交换的书 <span class="en-text">Books to Exchange</span> <span class="required">*</span>
+                        </legend>
+
+                        <label class="check-item" data-category="course">
+                            <input type="checkbox" name="books" value="高等数学 Advanced Mathematics" data-category="course">
+                            高等数学 <span class="en-text">Advanced Mathematics</span>
+                        </label>
+                        <label class="check-item" data-category="language">
+                            <input type="checkbox" name="books" value="大学英语 College English" data-category="language">
+                            大学英语 <span class="en-text">College English</span>
+                        </label>
+                        <label class="check-item" data-category="course">
+                            <input type="checkbox" name="books" value="数据结构 Data Structures" data-category="course">
+                            数据结构 <span class="en-text">Data Structures</span>
+                        </label>
+                        <label class="check-item" data-category="course">
+                            <input type="checkbox" name="books" value="计算机网络 Computer Networks" data-category="course">
+                            计算机网络 <span class="en-text">Computer Networks</span>
+                        </label>
+                        <label class="check-item" data-category="literature">
+                            <input type="checkbox" name="books" value="活着 To Live" data-category="literature">
+                            活着 <span class="en-text">To Live</span>
+                        </label>
+                        <label class="check-item" data-category="literature">
+                            <input type="checkbox" name="books" value="小王子 The Little Prince" data-category="literature">
+                            小王子 <span class="en-text">The Little Prince</span>
+                        </label>
+                        <label class="check-item" data-category="social">
+                            <input type="checkbox" name="books" value="人类简史 Sapiens" data-category="social">
+                            人类简史 <span class="en-text">Sapiens</span>
+                        </label>
+                        <label class="check-item" data-category="language">
+                            <input type="checkbox" name="books" value="乡土中国 From the Soil" data-category="language">
+                            乡土中国 <span class="en-text">From the Soil</span>
+                        </label>
+
+                        <!--
+                          没有选择分类时显示的提示文字
+                          A hint shown when no category has been picked yet
+                        -->
+                        <p class="check-hint" id="books-hint">
+                            请先在上面的「书籍分类」里选一类，这里会显示该类的书。<br>
+                            Please choose a category above and the books in that group will appear here.
+                        </p>
+                    </fieldset>
+                    <p class="error-msg" id="books-error">请至少勾选一本书 Please select at least one book</p>
+                </div>
+
+                <!-- 文本域：留言（必填）  |  Text area: message (required) -->
+                <div class="form-row">
+                    <label for="message">
+                        留言 <span class="en-text">Message</span> <span class="required">*</span>
+                    </label>
+                    <textarea id="message" name="message" rows="6"
+                        placeholder="请写下你想交换的书、可以接受的时间和地点 Please tell us which books you want to exchange and when and where you are free"></textarea>
+                    <p class="error-msg" id="message-error">请填写留言内容 Please write a short message</p>
+                </div>
+
+                <!-- 提交按钮  |  The submit buttons -->
+                <div class="form-actions">
+                    <input type="submit" class="btn-primary" value="提交登记 Submit">
+                    <input type="reset" class="btn-secondary" value="重置 Reset">
+                </div>
+
+            </form>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：常见问题
+             FEATURE BLOCK: FAQ
+             -------------------------------------------------------------- -->
+        <section id="section-faq" class="section-faq">
+            <h2>常见问题 <span class="en-text">Frequently Asked Questions</span></h2>
+
+            <ul class="faq-list">
+                <li>
+                    登记之后会有人联系我吗？
+                    <span class="en-text">Will anyone contact me after I register?</span>
+                    <p class="faq-answer">
+                        会的，我们会把你的信息放到站内公告栏，有同学会来找你。
+                        <span class="en-text">Yes. We post your details on the notice board, and interested students will get in touch with you.</span>
+                    </p>
+                </li>
+                <li>
+                    教材可以折价吗？
+                    <span class="en-text">Can textbooks be sold at a discount?</span>
+                    <p class="faq-answer">
+                        可以。教材建议按原价 5 折以下转让，其他书籍建议原价交换。
+                        <span class="en-text">Yes. Textbooks are usually transferred below half of their original price, while other books are best exchanged at full price.</span>
+                    </p>
+                </li>
+                <li>
+                    体面交接安全吗？
+                    <span class="en-text">Is it safe to meet in person?</span>
+                    <p class="faq-answer">
+                        建议定在图书馆、学生中心等人流多的地方，并约好同学一起。
+                        <span class="en-text">We suggest choosing a busy place such as the Library or the Student Centre, and asking a friend to come along.</span>
+                    </p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：联系方式
+             FEATURE BLOCK: CONTACT DETAILS
+             -------------------------------------------------------------- -->
+        <section class="contact-aside">
+            <h3>联系方式 <span class="en-text">Contact</span></h3>
+
+            <ul>
+                <li>邮箱 <span class="en-text">Email</span>：<a href="mailto:shishuxiang@example.edu">shishuxiang@example.edu</a></li>
+                <li>站点 <span class="en-text">Site</span>：图书馆二楼交换点 <span class="en-text">Exchange point, Library 2nd Floor</span></li>
+                <li>服务时间 <span class="en-text">Hours</span>：周二、周三、周五、周六晚上 <span class="en-text">Tuesday, Wednesday, Friday and Saturday evenings</span></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- ==================================================================
+         区块三：页脚
+         BLOCK 3: FOOTER
+         ================================================================== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <p>
+                联系方式：<a href="mailto:shishuxiang@example.edu">shishuxiang@example.edu</a>
+                <span class="en-text">Contact</span>
+            </p>
+
+            <p class="footer-links">
+                <a href="#header-top">返回顶部 <span class="en-text">Back to Top</span></a>
+                |
+                <a href="index.html">首页 <span class="en-text">Home</span></a>
+                |
+                <a href="detail.html">书单 <span class="en-text">Catalogue</span></a>
+                |
+                <a href="contact.html">留言板 <span class="en-text">Message Board</span></a>
+            </p>
+
+            <p class="footer-copyright">
+                &copy; 2026 拾书巷 Shishuxiang · 校园二手书交换站 Campus Book Exchange · 组号 2 Group 2
+                <span id="footer-year"></span>
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- 交互脚本  |  The interaction script -->
+    <script src="js/main.js?v=3" defer></script>
+
+</body>
+
+</html>

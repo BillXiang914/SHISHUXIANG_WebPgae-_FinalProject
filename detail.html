@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  拾书巷 (Shishuxiang) - 校园二手书交换站
+  Campus Second-hand Book Exchange Site  |  书单页 Catalogue Page (detail.html)
+  ----------------------------------------------------------------------------
+  负责人 Owner: 向梓辰 Xiang Zichen (202412320227)
+  合作者 Collaborator: 李佳豪 Li Jiahao (202412320211)
+  ----------------------------------------------------------------------------
+  本页使用 CSS Grid 排列图书，与首页的 Flex 布局形成对比。
+  This page arranges the books with CSS Grid, in contrast to the Flex layout
+  used on the home page.
+  ============================================================================
+-->
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书单 Catalogue | 拾书巷 Shishuxiang Campus Book Exchange</title>
+    <link rel="shortcut icon" href="images/logo.jpg?v=3" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+
+<body>
+    <!-- ==================================================================
+         区块一：顶部导航栏
+         BLOCK 1: HEADER / NAVIGATION BAR
+         ================================================================== -->
+    <header id="header-top">
+        <h1 class="header-site-title">拾书巷 <span class="en-text">Shishuxiang</span></h1>
+
+        <nav class="header-nav">
+            <div class="header-nav-inner">
+                <a href="index.html" class="header-nav-link">首页 <span class="en-text">Home</span></a>
+                <a href="detail.html" class="header-nav-link active">书单 <span class="en-text">Catalogue</span></a>
+                <a href="contact.html" class="header-nav-link">留言板 <span class="en-text">Message Board</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+
+        <!-- --------------------------------------------------------------
+             功能块：页面引言 + 类别筛选
+             FEATURE BLOCK: PAGE INTRO + CATEGORY FILTER
+             -------------------------------------------------------------- -->
+        <section class="section-page-intro">
+            <h2>书单 <span class="en-text">Catalogue</span></h2>
+
+            <p>
+                目前共收录 16 本可交换图书，按类别分为四类。点击下面的按钮可以只看某一类。
+                <span class="en-text">We currently hold 16 books available for exchange, sorted into four categories. Use the buttons below to narrow the list down to one category.</span>
+            </p>
+
+            <!-- 筛选按钮组（由 JS 控制显示/隐藏）  |  Filter buttons (controlled by JavaScript) -->
+            <div class="filter-bar">
+                <button type="button" class="filter-btn active" data-filter="all">全部 <span class="en-text">All</span></button>
+                <button type="button" class="filter-btn" data-filter="literature">文学类 <span class="en-text">Literature</span></button>
+                <button type="button" class="filter-btn" data-filter="social">社科类 <span class="en-text">Social Science</span></button>
+                <button type="button" class="filter-btn" data-filter="course">学科教材 <span class="en-text">Course Books</span></button>
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：文学类（CSS Grid 排列）
+             FEATURE BLOCK: LITERATURE GROUP (CSS GRID)
+             -------------------------------------------------------------- -->
+        <section id="group-literature" class="section-book-group" data-category="literature">
+            <h2>文学类 <span class="en-text">Literature</span></h2>
+
+            <div class="book-grid">
+                <article class="book-grid-card">
+                    <img src="images/活着.jpg?v=3" alt="《活着》封面 Cover of To Live">
+                    <h3>活着 <span class="en-text">To Live</span></h3>
+                    <p class="book-grid-author">余华 <span class="en-text">Yu Hua</span></p>
+                    <p class="book-grid-price"><strong>￥18</strong> <span class="en-text">CNY 18</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/小王子.jpg?v=3" alt="《小王子》封面 Cover of The Little Prince">
+                    <h3>小王子 <span class="en-text">The Little Prince</span></h3>
+                    <p class="book-grid-author">圣埃克苏佩里 <span class="en-text">Saint-Exupéry</span></p>
+                    <p class="book-grid-price"><strong>￥12</strong> <span class="en-text">CNY 12</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/人间失格.jpg?v=3" alt="《人间失格》封面 Cover of No Longer Human">
+                    <h3>人间失格 <span class="en-text">No Longer Human</span></h3>
+                    <p class="book-grid-author">太宰治 <span class="en-text">Osamu Dazai</span></p>
+                    <p class="book-grid-price"><strong>￥15</strong> <span class="en-text">CNY 15</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/追风筝的人.jpg?v=3" alt="《追风筝的人》封面 Cover of The Kite Runner">
+                    <h3>追风筝的人 <span class="en-text">The Kite Runner</span></h3>
+                    <p class="book-grid-author">卡勒德·胡赛尼 <span class="en-text">Khaled Hosseini</span></p>
+                    <p class="book-grid-price"><strong>￥22</strong> <span class="en-text">CNY 22</span></p>
+                </article>
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：社科类
+             FEATURE BLOCK: SOCIAL SCIENCE GROUP
+             -------------------------------------------------------------- -->
+        <section id="group-social" class="section-book-group" data-category="social">
+            <h2>社科类 <span class="en-text">Social Science</span></h2>
+
+            <div class="book-grid">
+                <article class="book-grid-card">
+                    <img src="images/人类简史.jpg?v=3" alt="《人类简史》封面 Cover of Sapiens">
+                    <h3>人类简史 <span class="en-text">Sapiens</span></h3>
+                    <p class="book-grid-author">尤瓦尔·赫拉利 <span class="en-text">Yuval Noah Harari</span></p>
+                    <p class="book-grid-price"><strong>￥25</strong> <span class="en-text">CNY 25</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/乡土中国.jpg?v=3" alt="《乡土中国》封面 Cover of From the Soil">
+                    <h3>乡土中国 <span class="en-text">From the Soil</span></h3>
+                    <p class="book-grid-author">费孝通 <span class="en-text">Fei Xiaotong</span></p>
+                    <p class="book-grid-price"><strong>￥28</strong> <span class="en-text">CNY 28</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/消费社会.jpg?v=3" alt="《消费社会》封面 Cover of The Consumer Society">
+                    <h3>消费社会 <span class="en-text">The Consumer Society</span></h3>
+                    <p class="book-grid-author">让·波伏娃 <span class="en-text">Simone de Beauvoir</span></p>
+                    <p class="book-grid-price"><strong>￥20</strong> <span class="en-text">CNY 20</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/国家与社会.jpg?v=3" alt="《国家与社会》封面 Cover of The Nation and Society">
+                    <h3>国家与社会 <span class="en-text">The Nation and Society</span></h3>
+                    <p class="book-grid-author">托马斯·霍克马特 <span class="en-text">Carl Schmitt</span></p>
+                    <p class="book-grid-price"><strong>￥16</strong> <span class="en-text">CNY 16</span></p>
+                </article>
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：学科教材
+             FEATURE BLOCK: COURSE BOOKS GROUP
+             -------------------------------------------------------------- -->
+        <section id="group-course" class="section-book-group" data-category="course">
+            <h2>学科教材 <span class="en-text">Course Books</span></h2>
+
+            <div class="book-grid">
+                <article class="book-grid-card">
+                    <img src="images/高等数学.jpg?v=3" alt="《高等数学》封面 Cover of Advanced Mathematics">
+                    <h3>高等数学 <span class="en-text">Advanced Mathematics</span></h3>
+                    <p class="book-grid-author">同济大学出版社 <span class="en-text">Tongji University Press</span></p>
+                    <p class="book-grid-price"><strong>￥18</strong> <span class="en-text">CNY 18</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/数据结构.jpg?v=3" alt="《数据结构》封面 Cover of Data Structures">
+                    <h3>数据结构 <span class="en-text">Data Structures</span></h3>
+                    <p class="book-grid-author">清华大学出版社 <span class="en-text">Tsinghua University Press</span></p>
+                    <p class="book-grid-price"><strong>￥22</strong> <span class="en-text">CNY 22</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/计算机网络.jpg?v=3" alt="《计算机网络》封面 Cover of Computer Networks">
+                    <h3>计算机网络 <span class="en-text">Computer Networks</span></h3>
+                    <p class="book-grid-author">清华大学出版社 <span class="en-text">Tsinghua University Press</span></p>
+                    <p class="book-grid-price"><strong>￥28</strong> <span class="en-text">CNY 28</span></p>
+                </article>
+
+                <article class="book-grid-card">
+                    <img src="images/普通物理.jpg?v=3" alt="《普通物理》封面 Cover of General Physics">
+                    <h3>普通物理 <span class="en-text">General Physics</span></h3>
+                    <p class="book-grid-author">高等教育出版社 <span class="en-text">Higher Education Press</span></p>
+                    <p class="book-grid-price"><strong>￥15</strong> <span class="en-text">CNY 15</span></p>
+                </article>
+            </div>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：教材价格参考（表格）
+             FEATURE BLOCK: TEXTBOOK PRICE REFERENCE (TABLE)
+             -------------------------------------------------------------- -->
+        <section id="section-price" class="section-price">
+            <h2>教材价格参考 <span class="en-text">Textbook Price Reference</span></h2>
+
+            <p>
+                以下是近两周成交的教材价格，供登记时参考。
+                <span class="en-text">The following prices are from textbooks exchanged over the past two weeks, provided as a reference when you register.</span>
+            </p>
+
+            <table class="table-price">
+                <thead>
+                    <tr>
+                        <th scope="col">书名 <span class="en-text">Title</span></th>
+                        <th scope="col">原价 <span class="en-text">Original Price</span></th>
+                        <th scope="col">转让价 <span class="en-text">Transfer Price</span></th>
+                        <th scope="col">成色 <span class="en-text">Condition</span></th>
+                        <th scope="col">备注 <span class="en-text">Remark</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--
+                      每一行都带 data-category，和上面的筛选按钮对应。
+                      点筛选按钮时，这个表格也会跟着一起变。
+                      Every row carries a data-category that matches the filter
+                      buttons above, so the table changes together with the
+                      book groups.
+                    -->
+                    <tr data-category="course">
+                        <td>高等数学 <span class="en-text">Advanced Mathematics</span></td>
+                        <td>￥45</td>
+                        <td>￥18</td>
+                        <td>八新 <span class="en-text">Nearly New</span></td>
+                        <td>有少量批注 <span class="en-text">A few annotations</span></td>
+                    </tr>
+                    <tr data-category="course">
+                        <td>数据结构 <span class="en-text">Data Structures</span></td>
+                        <td>￥48</td>
+                        <td>￥22</td>
+                        <td>七新 <span class="en-text">Good</span></td>
+                        <td>上学期购买 <span class="en-text">Bought last term</span></td>
+                    </tr>
+                    <tr data-category="course">
+                        <td>计算机网络 <span class="en-text">Computer Networks</span></td>
+                        <td>￥52</td>
+                        <td>￥28</td>
+                        <td>八新 <span class="en-text">Nearly New</span></td>
+                        <td>附追与官方答案 <span class="en-text">With notes and official answers</span></td>
+                    </tr>
+                    <tr data-category="course">
+                        <td>普通物理 <span class="en-text">General Physics</span></td>
+                        <td>￥38</td>
+                        <td>￥15</td>
+                        <td>普通 <span class="en-text">Fair</span></td>
+                        <td>有空白页 <span class="en-text">A few blank pages</span></td>
+                    </tr>
+                    <tr data-category="language">
+                        <td>大学英语 <span class="en-text">College English</span></td>
+                        <td>￥42</td>
+                        <td>￥19</td>
+                        <td>七新 <span class="en-text">Good</span></td>
+                        <td>含电子练习内容 <span class="en-text">With the online exercise code</span></td>
+                    </tr>
+                    <tr data-category="literature">
+                        <td>活着 <span class="en-text">To Live</span></td>
+                        <td>￥38</td>
+                        <td>￥18</td>
+                        <td>八新 <span class="en-text">Nearly New</span></td>
+                        <td>扉页有签名 <span class="en-text">Signed on the flyleaf</span></td>
+                    </tr>
+                    <tr data-category="literature">
+                        <td>小王子 <span class="en-text">The Little Prince</span></td>
+                        <td>￥32</td>
+                        <td>￥12</td>
+                        <td>七新 <span class="en-text">Good</span></td>
+                        <td>有少量划线 <span class="en-text">A few highlighted lines</span></td>
+                    </tr>
+                    <tr data-category="social">
+                        <td>人类简史 <span class="en-text">Sapiens</span></td>
+                        <td>￥68</td>
+                        <td>￥25</td>
+                        <td>八新 <span class="en-text">Nearly New</span></td>
+                        <td>塑封已拆 <span class="en-text">Seal opened</span></td>
+                    </tr>
+                    <tr data-category="social">
+                        <td>乡土中国 <span class="en-text">From the Soil</span></td>
+                        <td>￥45</td>
+                        <td>￥28</td>
+                        <td>七新 <span class="en-text">Good</span></td>
+                        <td>书角有磨损 <span class="en-text">Worn at the corners</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- --------------------------------------------------------------
+             功能块：购书贴士
+             FEATURE BLOCK: BUYING TIPS
+             -------------------------------------------------------------- -->
+        <section id="section-tips" class="section-tips">
+            <h2>购书小贴士 <span class="en-text">Buying Tips</span></h2>
+
+            <ol class="list-procedure">
+                <li>有笔记和划线的教材，价格通常比全新低 15 元起
+                    <span class="en-text">Textbooks with notes and highlighting usually go for 15 CNY less than a brand-new copy.</span></li>
+                <li>交接前先拍一下书本的整体和边角状态
+                    <span class="en-text">Take a photo of the whole book and of its corners before the handover.</span></li>
+                <li>同一科目的教材最好统一在固定时间点交换
+                    <span class="en-text">It works best to arrange the exchange of textbooks for the same course at one fixed time.</span></li>
+                <li>购买前先确认是否有缺页或破损
+                    <span class="en-text">Always check for missing or damaged pages before you accept the book.</span></li>
+            </ol>
+        </section>
+
+    </main>
+
+    <!-- ==================================================================
+         区块三：页脚
+         BLOCK 3: FOOTER
+         ================================================================== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <p>
+                联系方式：<a href="mailto:shishuxiang@example.edu">shishuxiang@example.edu</a>
+                <span class="en-text">Contact</span>
+            </p>
+
+            <p class="footer-links">
+                <a href="#header-top">返回顶部 <span class="en-text">Back to Top</span></a>
+                |
+                <a href="index.html">首页 <span class="en-text">Home</span></a>
+                |
+                <a href="detail.html">书单 <span class="en-text">Catalogue</span></a>
+                |
+                <a href="contact.html">留言板 <span class="en-text">Message Board</span></a>
+            </p>
+
+            <p class="footer-copyright">
+                &copy; 2026 拾书巷 Shishuxiang · 校园二手书交换站 Campus Book Exchange · 组号 2 Group 2
+                <span id="footer-year"></span>
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- 交互脚本  |  The interaction script -->
+    <script src="js/main.js?v=3" defer></script>
+
+</body>
+
+</html>
