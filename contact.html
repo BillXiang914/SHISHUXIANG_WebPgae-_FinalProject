@@ -20,8 +20,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>留言板 Message Board | 拾书巷 Shishuxiang Campus Book Exchange</title>
-    <link rel="shortcut icon" href="images/logo.jpg?v=6" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="shortcut icon" href="images/logo.jpg?v=7" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css?v=7">
 </head>
 
 <body>
@@ -38,7 +38,11 @@
 
             <!-- 搜索框  |  Search Box -->
             <form class="header-search" id="header-search-form" role="search">
-                <input type="search" id="header-search-input" placeholder="搜书名或作者 Search by title or writer" aria-label="搜索图书 Search for a book">
+                <input type="search" id="header-search-input" placeholder="搜书名或作者"
+                       data-hint-full="搜书名或作者 Search by title or writer" aria-label="搜索图书 Search for a book">
+                <!-- 展开以后，英文提示出现在框的右边  -->
+                <!-- Once the box is open, the English half shows on the right -->
+                <span class="search-extra">Search by title or writer</span>
             </form>
 
             <!-- 导航菜单  |  Navigation -->
@@ -290,7 +294,7 @@
     </footer>
 
     <!-- 交互脚本  |  The interaction script -->
-    <script src="js/main.js?v=6" defer></script>
+    <script src="js/main.js?v=7" defer></script>
 
 </body>
 

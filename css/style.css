@@ -251,11 +251,49 @@ hr {
 
 /* ---- 搜索框  |  The search box ---- */
 .header-search {
-    /* 自动占据中间剩下的空间  */
-    /* Takes up whatever room is left in the middle */
-    flex: 1 1 auto;
+    /* 自动占据中间剩下的空间，但不会超过 340px  */
+    /* Takes up the room left in the middle, but never more than 340px */
+    flex: 1 1 240px;
     max-width: 340px;
     position: relative;
+    /* 展开时宽度慢慢变宽，不会突然跳动  */
+    /* The width grows slowly when it opens, so it does not jump */
+    transition: flex-basis 0.35s ease, max-width 0.35s ease;
+}
+
+/* 点击之后搜索框变宽，完整的提示文字就能显示出来  */
+/* After a click the box grows, so the full hint has room to show */
+.header-search.is-expanded {
+    flex-basis: 470px;
+    max-width: 470px;
+}
+
+/* 展开以后，英文提示出现在框的右边  */
+/* Once it is open, the English half sits on the right inside the box */
+/* 默认是藏起来的，只有展开并且没输入文字时才出现  */
+/* It stays hidden until the box is open and still empty */
+.search-extra {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    pointer-events: none;               /* 不挡输入  Does not block typing */
+    white-space: nowrap;
+}
+
+/* 展开并且框里还是空的，就显示英文  */
+/* Open and still empty, the English shows */
+.header-search.is-expanded .search-extra {
+    display: block;
+}
+
+/* 一旦开始打字，英文就让位给用户输入的文字  */
+/* As soon as the visitor types, the English gives way to their own words */
+.header-search.has-text .search-extra {
+    display: none;
 }
 
 /* 搜索框里的放大镜图标  |  The little magnifying glass */
@@ -284,6 +322,14 @@ hr {
     border-radius: 999px;
     background-color: var(--color-bg);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* 提示文字比较长的时候，不要因为放不下就被切掉  */
+/* The hint is long, so it must not be cut off when there is no room */
+.header-search input::placeholder {
+    /* text-overflow 加上 ellipsis 才会显示成 ...  */
+    /* text-overflow with ellipsis is what shows the three dots */
+    text-overflow: ellipsis;
 }
 
 /* 搜索框获得焦点时的样子  |  When the search box has the focus */
@@ -371,6 +417,20 @@ hr {
 
     .header-search {
         max-width: 210px;
+        flex-basis: 180px;
+    }
+
+    /* 窄屏上不要展开得太大，不然会压到导航  */
+    /* On a narrow screen the box must not grow so much that it covers the nav */
+    .header-search.is-expanded {
+        max-width: 300px;
+        flex-basis: 280px;
+    }
+
+    /* 屏幕太小就藏掉英文，只留中文  */
+    /* On a small screen only the Chinese is kept */
+    .search-extra {
+        display: none !important;
     }
 }
 

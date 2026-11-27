@@ -31,7 +31,7 @@
    image or the style sheet is changed, raise this number to 7 and the
    browser will fetch the new file by itself.
    ========================================================================== */
-var SITE_VERSION = "6";
+var SITE_VERSION = "7";
 
 /* ==========================================================================
    第 1 个功能：页脚年份自动更新
@@ -846,6 +846,66 @@ function initHeaderSearch() {
     if (!form || !input) {
         return;
     }
+
+    var box = form;                    /* 外面的容器  The box around the input */
+    var shortHint = input.getAttribute("placeholder") || "";
+    var fullHint = input.getAttribute("data-hint-full") || shortHint;
+
+    /* 点击搜索框的时候，把框变宽，英文提示出现在右边  */
+    /* On a click the box grows and the English half appears on the right */
+    function openBox() {
+        box.classList.add("is-expanded");
+        /* 完整的提示放在 title 上，鼠标停住就能看到  */
+        /* The full hint goes into the title, so it shows on hover */
+        input.setAttribute("title", fullHint);
+    }
+
+    /* 点了外面之后，又变回短短的样子  */
+    /* After a click somewhere else it goes back to the short form */
+    function closeBox() {
+        box.classList.remove("is-expanded");
+        input.removeAttribute("title");
+    }
+
+    /* 输入框里有字的时候加一个记号，英文提示就让位  */
+    /* A mark is set when there is text, so the English hint gives way */
+    function checkText() {
+        if (input.value.trim() === "") {
+            box.classList.remove("has-text");
+        } else {
+            box.classList.add("has-text");
+        }
+    }
+
+    input.addEventListener("focus", openBox);
+
+    /* 键盘 Tab 进来的时候也要展开  */
+    /* It also opens when the box is reached with the Tab key */
+    input.addEventListener("click", openBox);
+
+    /* 每次打字都检查一下有没有内容  */
+    /* The text is checked on every keystroke */
+    input.addEventListener("input", checkText);
+
+    /* 点到外面就收回去。mousedown 先跑，这样点击会先被输入框接住  */
+    /* A click outside puts it back. mousedown runs first, so the input */
+    /* still gets the click before the box closes                       */
+    document.addEventListener("mousedown", function (event) {
+        if (!box.contains(event.target)) {
+            closeBox();
+        }
+    });
+
+    /* 按 Esc 就收回去  */
+    /* The Escape key also closes it */
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeBox();
+            input.blur();
+        }
+    });
+
+    checkText();
 
     form.addEventListener("submit", function (event) {
         // 阻止表单默认的跳转行为，我们自己控制

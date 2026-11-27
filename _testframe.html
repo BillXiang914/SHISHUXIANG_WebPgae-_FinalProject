@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>搜索框测试 Search box test</title>
+<style>
+  body { margin: 0; padding: 10px; background: #eef1f5;
+         font-family: "Microsoft YaHei", sans-serif; }
+  h3 { font-size: 13px; margin: 0 0 6px; color: #2f3d4c; }
+  .scale { width: 460px; height: 250px; overflow: hidden;
+           border: 1px solid #99a; border-radius: 6px; background: #fff;
+           position: relative; }
+  .frame { width: 1300px; height: 700px; border: 0;
+           transform: scale(0.354); transform-origin: top left;
+           pointer-events: none; }
+  iframe { width: 1300px; height: 700px; border: 0; }
+</style>
+</head>
+<body>
+  <h3>1. 默认状态（只有中文）Default: Chinese only</h3>
+  <div class="scale"><div class="frame">
+    <iframe src="index.html?f=1"></iframe>
+  </div></div>
+
+  <h3 style="margin-top:10px">2. 点击之后（中文 + 英文）After a click: Chinese and English</h3>
+  <div class="scale"><div class="frame">
+    <iframe src="index.html?f=2"></iframe>
+  </div></div>
+
+<script>
+  /* 第二个框里自动把搜索框展开  */
+  /* The second frame opens the search box by itself */
+  window.addEventListener('load', function () {
+    var frames = document.querySelectorAll('iframe');
+    setTimeout(function () {
+      var d = frames[1].contentDocument;
+      var i = d.getElementById('header-search-input');
+      if (i) { i.focus(); i.click(); }
+    }, 500);
+  });
+</script>
+</body>
+</html>
