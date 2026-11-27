@@ -1,0 +1,13 @@
+# 这是本机用的启动器，不属于网站本身，不上传到 GitHub
+# This launcher is for the computer, it is not part of the site
+启动服务器.bat
+
+# 备份文件 Backup files
+*.bak
+*~
+.DS_Store
+Thumbs.db
+
+# Python Python
+__pycache__/
+*.pyc
