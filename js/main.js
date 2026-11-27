@@ -600,92 +600,92 @@ var BOOK_DATA = {
     "活着": {
         title: "活着", en: "To Live", writer: "余华 Yu Hua",
         category: "文学类 Literature", price: 18,
-        condition: "八新成尺，有少量批注 Good, with a few notes",
-        intro: "余华的长篇小说，叙述一个家庭四代人的命运。书中的主人公众一次次失败去家人，却从不已终止。A long novel by Yu Hua about one family over four generations, and about a man who keeps losing his family but never gives up.",
+        condition: "八成新，有少量批注 Good, with a few notes",
+        intro: "余华的长篇小说，叙述一个家庭四代人的命运。书中的主人公一次次失去家人，却从不曾放弃。A long novel by Yu Hua about one family over four generations, and about a man who keeps losing his family but never gives up.",
         tags: ["中文小说 Chinese novel", "家庭回忆 Family story"]
     },
     "小王子": {
         title: "小王子", en: "The Little Prince", writer: "圣埃克苏佩里 Saint-Exupéry",
         category: "文学类 Literature", price: 12,
-        condition: "八新，回页有轻微折痕 Like new, a light crease on the back cover",
-        intro: "一位从小星理来的小王子，在小星上遇见一只三半《转尖的小尽》。他用简单的话说起了爱、照顾和正要的事。A little prince who came from a small planet meets a fox on another one. He says simple things about love, care and what really matters.",
+        condition: "八成新，封面有轻微折痕 Like new, a light crease on the cover",
+        intro: "一位从小星球上来的小王子，在另一颗星球上遇见一只狐狸。他用简单的话说起了爱、照顾和真正重要的事。A little prince who came from a small planet meets a fox on another one. He says simple things about love, care and what really matters.",
         tags: ["儿童文学 Children's book", "想象小说 A fable"]
     },
     "人类简史": {
         title: "人类简史", en: "Sapiens", writer: "尤瓦尔·赫拉利 Yuval Noah Harari",
         category: "社科类 Social Science", price: 25,
-        condition: "八新，封面有轻微折痕 Like new, a light crease on the cover",
-        intro: "一本大体量的非小说。作者回顾了历史上的关键转折，展开了点击火造结社会的全过程。A big book of non-fiction. The author looks back at the turning points of history and explains how farming led to societies like the one we live in now.",
+        condition: "八成新，封面有轻微折痕 Like new, a light crease on the cover",
+        intro: "一本大体量的非小说。作者回顾了历史上的关键转折，展开了农业造就社会的全过程。A big book of non-fiction. The author looks back at the turning points of history and explains how farming led to societies like the one we live in now.",
         tags: ["历史 History", "社会科学 Social science"]
     },
     "平凡的世界": {
         title: "平凡的世界", en: "The Ordinary World", writer: "路遥 Lu Yao",
         category: "文学类 Literature", price: 20,
-        condition: "八新，有少量批注 Like new, with a few notes",
-        intro: "路遥的百万字长篇，叙述孙少平一家三代人在国家变运中的命运。Lu Yao's million-word novel follows the Sun family through three generations while the country changes around them.",
-        tags: ["中文小说 Chinese novel", "历史活属 A period drama"]
+        condition: "八成新，有少量批注 Like new, with a few notes",
+        intro: "路遥的百万字长篇，叙述孙少平一家三代人在国家变局中的命运。Lu Yao's million-word novel follows the Sun family through three generations while the country changes around them.",
+        tags: ["中文小说 Chinese novel", "历史画卷 A period drama"]
     },
     "人间失格": {
-        title: "人间失格", en: "No Longer Human", writer: "太容治 Osamu Dazai",
+        title: "人间失格", en: "No Longer Human", writer: "太宰治 Osamu Dazai",
         category: "文学类 Literature", price: 15,
-        condition: "八新，内页存在无关紫迹 Like new, no marks inside",
-        intro: "太宲治的自传体小说。主人公大兰离封与世界，从而开始看不见人。A famous Japanese novel by Osamu Dazai. The main character breaks off from the world and slowly stops being able to see people.",
+        condition: "八成新，内页无批注痕迹 Like new, no marks inside",
+        intro: "太宰治的自传体小说。主人公大庭叶藏离弃世界，从而开始看不见人。A famous Japanese novel by Osamu Dazai. The main character breaks off from the world and slowly stops being able to see people.",
         tags: ["日本文学 Japanese literature", "自传 A memoir"]
     },
     "追风筝的人": {
         title: "追风筝的人", en: "The Kite Runner", writer: "卡勒德·胡赛尼 Khaled Hosseini",
         category: "文学类 Literature", price: 22,
-        condition: "八新，封面有轻微磨损 Slight wear on the cover, otherwise like new",
-        intro: "一个关于羊阵、红色飞与彼得的故事，叙述两个友人之间的那种爱与罪感。A story about a kite, a red kite and a boy named Peter, about the love and the guilt between two friends.",
+        condition: "八成新，封面有轻微磨损 Slight wear on the cover, otherwise like new",
+        intro: "一个关于风筝、红色风筝与彼得的故事，叙述两个友人之间的那种爱与罪感。A story about a kite, a red kite and a boy named Peter, about the love and the guilt between two friends.",
         tags: ["历史小说 A historical novel", "人物 A character study"]
     },
     "乡土中国": {
         title: "乡土中国", en: "From the Soil", writer: "费孝通 Fei Xiaotong",
         category: "社科类 Social Science", price: 28,
-        condition: "八新，封面很新 Like new, the cover is very clean",
+        condition: "八成新，封面很新 Like new, the cover is very clean",
         intro: "费孝通从乡村社会的视角研究中国农村的民族、社会与法律。Fei Xiaotong studies the people, the society and the rules of rural China, seen from the point of view of the countryside.",
         tags: ["社会学 Social studies", "国家研究 National studies"]
     },
     "消费社会": {
-        title: "消费社会", en: "The Consumer Society", writer: "让·波伏娅 Simone de Beauvoir",
+        title: "消费社会", en: "The Consumer Society", writer: "让·波伏娃 Simone de Beauvoir",
         category: "社科类 Social Science", price: 20,
-        condition: "八新，内页干净 Like new, the pages are clean",
-        intro: "使得波伏娅选集里的文章，讨论中国现代社会中消费的意义与种类。A collection of essays by Simone de Beauvoir about what consumption means in modern Chinese society, and what kind of society it can create.",
+        condition: "八成新，内页干净 Like new, the pages are clean",
+        intro: "让·波伏娃选集里的文章，讨论中国现代社会中消费的意义与种类。A collection of essays by Simone de Beauvoir about what consumption means in modern Chinese society, and what kind of society it can create.",
         tags: ["社会科学 Social science", "文集 An essay collection"]
     },
     "国家与社会": {
         title: "国家与社会", en: "The Nation and Society", writer: "托马斯·霍克马特 Carl Schmitt",
         category: "社科类 Social Science", price: 16,
-        condition: "八新，有少量批注 Like new, with a few notes",
-        intro: "美国政治思想家写关于国家、民族与治理关系的经典工作。A classic work by the German political thinker on the relation between the state, the people and politics.",
+        condition: "八成新，有少量批注 Like new, with a few notes",
+        intro: "德国政治思想家写关于国家、民族与治理关系的经典著作。A classic work by the German political thinker on the relation between the state, the people and politics.",
         tags: ["政治学 Political theory", "经典 A classic"]
     },
     "高等数学": {
         title: "高等数学", en: "Advanced Mathematics", writer: "同济大学出版社 Tongji University Press",
         category: "学科教材 Course Books", price: 18,
-        condition: "八新，无任何批注 Like new, no notes at all",
-        intro: "高等数学的通常教材，包含高等数学、简明线性代数、微积分与多变量函数、微分方程、无级结构与微分方程等章节。The usual textbook for the first year course, covering higher algebra, linear algebra, calculus, differential equations and probability.",
+        condition: "八成新，无任何批注 Like new, no notes at all",
+        intro: "高等数学的通常教材，包含高等代数、简明线性代数、微积分与多变量函数、微分方程、无级数列与概率统计等章节。The usual textbook for the first year course, covering higher algebra, linear algebra, calculus, differential equations and probability.",
         tags: ["高数 Higher mathematics", "教材 A textbook"]
     },
     "数据结构": {
         title: "数据结构", en: "Data Structures", writer: "清华大学出版社 Tsinghua University Press",
         category: "学科教材 Course Books", price: 22,
-        condition: "八新，有少量批注 Like new, with a few notes",
-        intro: "让加非阿莲的经典教材，讲讲线性表、栈、队列、树、图、排序和查找等基本数据结构。The classic textbook for students who are not in computer science. It covers lists, stacks, queues, trees, graphs, sorting and searching.",
+        condition: "八成新，有少量批注 Like new, with a few notes",
+        intro: "让·加尼阿赫的经典教材，讲讲线性表、栈、队列、树、图、排序和查找等基本数据结构。The classic textbook for students who are not in computer science. It covers lists, stacks, queues, trees, graphs, sorting and searching.",
         tags: ["计算机 Computer science", "教材 A textbook"]
     },
     "计算机网络": {
         title: "计算机网络", en: "Computer Networks", writer: "清华大学出版社 Tsinghua University Press",
         category: "学科教材 Course Books", price: 28,
-        condition: "八新，封面很新 Like new, the cover is very clean",
+        condition: "八成新，封面很新 Like new, the cover is very clean",
         intro: "计算机网络的经典教材，讲讲物理层、数据链路层、网络层、传输层和应用层。The classic textbook on computer networks, covering the physical layer, the data link layer, the network layer, the transport layer and the application layer.",
         tags: ["计算机 Computer science", "教材 A textbook"]
     },
     "普通物理": {
         title: "普通物理", en: "General Physics", writer: "高等教育出版社 Higher Education Press",
         category: "学科教材 Course Books", price: 15,
-        condition: "八新，内页有少量提问笔迹 Like new, a few pencil marks inside",
-        intro: "普通物理的通常教材，覆盖力学、热学、震动、光学和量子物理的基础内容。The usual textbook for general physics, covering mechanics, heat, vibration, optics and quantum physics.",
+        condition: "八成新，内页有少量铅笔痕迹 Like new, a few pencil marks inside",
+        intro: "普通物理的通常教材，覆盖力学、热学、振动、光学和量子物理的基础内容。The usual textbook for general physics, covering mechanics, heat, vibration, optics and quantum physics.",
         tags: ["物理 Physics", "教材 A textbook"]
     }
 };
