@@ -397,6 +397,12 @@ hr {
     }
 }
 
+/* 手机端的头部、侧栏和详情页样式统一放在文件末尾的第 20 部分，
+   这样才能盖住前面 900px 和 640px 断点里的旧规则。
+   The rules for the phone live at the end of the file, in part 20, so
+   that they sit after the older breakpoints and win.
+   ------------------------------------------------------------------- */
+
 /* 中间尺寸：站名、搜索框、导航都要挤一点  */
 /* In between, the name, the search box and the nav all tighten up */
 @media screen and (max-width: 1000px) {
@@ -2445,3 +2451,176 @@ h3 .en-text {
     60%  { transform: scale(1.03); }
     100% { transform: scale(1); }
 }
+
+
+/* ==========================================================================
+   第 20 部分：手机端头部和布局
+   PART 20: THE HEADER AND THE LAYOUT ON A PHONE
+   --------------------------------------------------------------------------
+   这部分放在文件最后，因为上面的规则里 900px 和 640px 的断点
+   写得比较早，手机的规则要放在它们后面才能盖住。
+
+   这一部分放在文件最后，因为前面 900px 和 640px 的断点写得更早，
+   手机上的规则必须排在它们后面才能生效。
+   ========================================================================== */
+
+@media screen and (max-width: 560px) {
+    /* ---- 头部改成两行  |  The header goes on two rows ----
+       原来的横条在 375px 宽度下排不下：三个导航链接加上中英文文字
+       一共要 605px，页面被撑出 245px，右侧会出现横向滚动条。
+       现在上面一行是站名，下面一行是导航。
+       The bar did not fit at 375px: the three links with both languages
+       needed 605px, so the page grew 245px too wide and a sideways
+       scrollbar appeared. The site name is now on the first row and the
+       navigation on the second.
+       ----------------------------------------------------------------- */
+    .header-inner {
+        /* 改成上下两行  |  Stack the rows */
+        flex-wrap: wrap;
+        /* 允许换行  |  Allow the wrapping */
+        row-gap: 2px;
+        column-gap: 10px;
+        padding-top: 9px;
+        padding-bottom: 6px;
+    }
+
+    /* 站名独占一行  |  The site name takes the first row */
+    .header-site-title {
+        font-size: 21px;
+        letter-spacing: 1px;
+        /* 右边不再需要留空  |  No room needed on the right now */
+        margin-right: 0;
+    }
+
+    /* 导航换到第二行，靠左对齐  |  The nav moves to the second row */
+    .header-nav {
+        /* 不再靠右  |  No longer pushed to the right */
+        margin-left: 0;
+        /* 占满整行，让三个链接平分  |  Take the whole row */
+        width: 100%;
+        /* 三个链接平均分布  |  The three links spread out evenly */
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    /* 手机上链接更紧凑  |  Tighter links on a phone */
+    .header-nav-link {
+        padding: 5px 6px;
+        font-size: 15px;
+        text-align: center;
+        /* 链接平分宽度  |  Each link takes an equal share */
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    /* 英文部分在手机上单独一行，字小一点  */
+    /* The English part goes on its own line, in a smaller size */
+    .header-nav-link .en-text {
+        display: block;
+        font-size: 11px;
+        margin-top: 1px;
+    }
+
+    /* ---- 侧栏改成全宽  |  The sidebar takes the full width ----
+       侧栏原本固定 300px，在 375px 宽的屏幕上加上内边距就撑破了页面，
+       右边会出现一条横向滚动条。这里让它跟着屏幕走。
+       The sidebar was a fixed 300px, which broke the page on a 375px
+       screen once the padding was added. Now it follows the screen.
+       ----------------------------------------------------------------- */
+    .layout-two-col {
+        /* 两栏在手机上改成上下  |  The two columns stack on a phone */
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .layout-side-col {
+        /* 不再固定宽度  |  No longer a fixed width */
+        width: auto;
+        flex: 1 1 100%;
+        /* 关键：把最小宽度放开，不然 300px 的下限会压住新宽度  */
+        /* The important bit: release the minimum width, otherwise the old */
+        /* 300px floor would win over the new width. */
+        min-width: 0;
+        /* 不留左边距  |  No left margin */
+        margin-left: 0;
+        /* 内边距缩小  |  Smaller padding */
+        padding: 18px 16px;
+    }
+
+    /* ---- 详情页的封面不再固定宽度  |  The cover is not a fixed width ----
+       固定 280px 在 320px 宽的屏幕上加上内边距会撑破页面。
+       A fixed 280px broke the page on a 320px screen once the padding
+       was added, so the width now follows the screen.
+       ----------------------------------------------------------------- */
+    .book-detail-cover {
+        /* 不再固定  |  No longer fixed */
+        flex: 1 1 auto;
+        /* 占满整行  |  Take the whole row */
+        width: 100%;
+        /* 不超过屏幕宽度  |  Never wider than the screen */
+        max-width: 100%;
+    }
+
+    .book-detail-cover img {
+        /* 高度跟着宽度走  |  The height follows the width */
+        height: auto;
+        /* 最高不超过 380px  |  But never taller than 380px */
+        max-height: 380px;
+    }
+
+    /* ---- 详情页在手机上改成上下排  |  The detail page stacks on a phone ---- */
+    .book-detail {
+        /* 竖着排  |  Stack it */
+        flex-direction: column;
+    }
+
+    .book-detail-info {
+        /* 宽度不受限  |  No width limit */
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    /* ---- 表格自己横向滚动  |  The tables scroll sideways on their own ----
+       表格有五列，320px 宽的手机上放不下。整张表格如果撑开页面，
+       右边会出现一条很难看的横向滚动条。改成表格自己滚动，
+       手指在表格上滑就能看到后面的列。
+       The tables have five columns and do not fit on a 320px phone.
+       If the whole table stretched the page there would be an ugly
+       sideways scrollbar. Now the table scrolls on its own, so a
+       finger dragged across it shows the later columns.
+       ----------------------------------------------------------------- */
+    .table-schedule,
+    .table-price {
+        /* 表格变成块级，才能自己滚动  |  A block, so it can scroll */
+        display: block;
+        /* 宽度不超过屏幕  |  Never wider than the screen */
+        max-width: 100%;
+        /* 超出的部分自己滚  |  The rest scrolls by itself */
+        overflow-x: auto;
+        /* 滚动条明显一点，方便看出能滑  |  A clear scrollbar, so it is obvious */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 表格里的行和表头保持原来的样子  */
+    /* The rows and the header keep their normal look */
+    .table-schedule thead,
+    .table-price thead,
+    .table-schedule tbody,
+    .table-price tbody,
+    .table-schedule tr,
+    .table-price tr {
+        display: table;
+        width: 100%;
+        table-layout: auto;
+    }
+
+    .table-schedule th,
+    .table-price th,
+    .table-schedule td,
+    .table-price td {
+        /* 单元格内容不换行时表格才不会被压扁  */
+        /* The cells only wrap if the text cannot fit on one line */
+        white-space: nowrap;
+    }
+}
+

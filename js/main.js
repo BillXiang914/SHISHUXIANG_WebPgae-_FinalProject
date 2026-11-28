@@ -31,7 +31,7 @@
    image or the style sheet is changed, raise this number to 7 and the
    browser will fetch the new file by itself.
    ========================================================================== */
-var SITE_VERSION = "7";
+var SITE_VERSION = "13";
 
 /* ==========================================================================
    第 1 个功能：页脚年份自动更新
